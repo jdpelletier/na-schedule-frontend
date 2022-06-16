@@ -1,0 +1,15 @@
+.logcard {
+  width: 750px;
+  padding: 10px;
+  font-size: 15px;
+  border-style: solid;
+  background-color: grey;
+}
+
+.logitem {
+  border-style: solid;
+}
+
+.formwrapper {
+  width: 750px;
+}

@@ -1,0 +1,88 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.tablewrap {
+  overflow-x: auto;
+  height: 100vh;
+  width: 85vw;
+}
+
+table {
+  border-collapse: collapse;
+  text-align: center;
+  width: 100%;
+}
+
+th {
+  position: sticky;
+  top: 0;
+}
+
+table td, #table th {
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+
+/* table tr.MON, tr.WED, tr.FRI {
+  background-color: #FFFFFF;
+}
+
+table tr.TUE, tr.THU {
+  background-color: #C6D8EB;
+} */
+
+table tr {
+  background-color: #FFFFFF;
+}
+
+table tr.Sun:nth-child(2n+1) {
+  background-color: #787a80;
+}
+
+table tr:hover {background-color: #456C98;}
+table tr:hover {color: #FFFFFF;}
+
+table th, tfoot td {
+  word-spacing: 100vw;
+  max-width: 50px;
+  padding-top: 12px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #2C5583;
+  color: white;
+  border: 1px solid #ddd;
+  border-top: none
+}
+
+input[type="checkbox"]{
+    -webkit-appearance: initial;
+    appearance: initial;
+    background: #CADAED;
+    width: 10px;
+    height: 10px;
+    border: none;
+    position: relative;
+}
+
+input[type="checkbox"]:before {
+    content: '-';
+    position: absolute;
+    top: -0.25em;
+    left: .1em;
+}
+
+div.checkmark {
+  text-align: right;
+  max-height: 1px;
+  height: 100%;
+}
+
+
+
+/* div.isobuttons {
+  display: inline-block;
+} */
