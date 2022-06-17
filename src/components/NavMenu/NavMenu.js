@@ -7,14 +7,6 @@ import './NavMenu.css'
 
 const NavMenu = ({page, setPage, setSubmit, setViewlog}) => {
 
-  const goHome = () => {
-    setPage('home')
-  }
-
-  const goTraining = () => {
-    setPage('training')
-  }
-
   const goNightlog = () => {
     if(page === "nightlog"){
       setViewlog(false)
@@ -36,8 +28,9 @@ const NavMenu = ({page, setPage, setSubmit, setViewlog}) => {
           <Container>
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link onClick={goHome}>Home</Nav.Link>
-                <Nav.Link onClick={goTraining}>Training Documents</Nav.Link>
+                <Nav.Link onClick={() => setPage('home')}>Home</Nav.Link>
+                <Nav.Link onClick={() => setPage('training')}>Training Documents</Nav.Link>
+                <Nav.Link onClick={() => setPage('cameras')}>Cameras</Nav.Link>
                 <Nav.Link onClick={goNightlog}>Nightlogs</Nav.Link>
                 <Nav.Link onClick={goSubmit}>Submit New Nightlog</Nav.Link>
               </Nav>
@@ -53,8 +46,9 @@ const NavMenu = ({page, setPage, setSubmit, setViewlog}) => {
           <Container>
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link onClick={goHome}>Home</Nav.Link>
-                <Nav.Link onClick={goTraining}>Training Documents</Nav.Link>
+                <Nav.Link onClick={() => setPage('home')}>Home</Nav.Link>
+                <Nav.Link onClick={() => setPage('training')}>Training Documents</Nav.Link>
+                <Nav.Link onClick={() => setPage('cameras')}>Cameras</Nav.Link>
                 <Nav.Link onClick={goNightlog}>Nightlogs</Nav.Link>
               </Nav>
             </Navbar.Collapse>

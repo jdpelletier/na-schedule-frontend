@@ -4,6 +4,7 @@ import { Table } from "./components/Table/Table";
 import { SideBar } from "./components/SideBar/SideBar";
 import { Training } from "./components/Training/Training"
 import { Nightlog } from "./components/Nightlog/Nightlog"
+import { Cameras } from "./components/Cameras/Cameras"
 import { format } from "date-fns"
 import "./App.css"
 
@@ -135,6 +136,10 @@ function App () {
   }else if(page === "nightlog"){
     return(
       <Nightlog setPage={setPage}/>
+    )
+  }else if(page === "cameras"){
+    return(
+      <Cameras setPage={setPage}/>
     )
   }
 

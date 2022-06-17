@@ -7,14 +7,6 @@ import './SideBar.css'
 
 export const SideBar = ({ dateRange, setDateRange, isSignedIn, onRouteChange, onNewSchedule, names, setPage }) => {
 
-  const training = () => {
-    setPage("training")
-  }
-
-  const nightlog = () => {
-    setPage("nightlog")
-  }
-
   return (
     <div>
       <div className="upload">
@@ -28,10 +20,13 @@ export const SideBar = ({ dateRange, setDateRange, isSignedIn, onRouteChange, on
           <IndividualDownload names={names} />
         </div>
         <div className="item">
-          <Button variant="secondary" onClick={nightlog}>Nightlog</Button>
+          <Button variant="secondary" onClick={() => setPage('nightlog')}>Nightlog</Button>
         </div>
         <div className="item">
-          <Button variant="secondary" onClick={training}>Training Documents</Button>
+          <Button variant="secondary" onClick={() => setPage('training')}>Training Documents</Button>
+        </div>
+        <div className="item">
+          <Button variant="secondary" onClick={() => setPage('cameras')}>Cameras</Button>
         </div>
       </div>
     </div>

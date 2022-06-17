@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 export const UploadFile = ({ onRouteChange, isSignedIn, onNewSchedule }) => {
 
@@ -27,10 +29,13 @@ export const UploadFile = ({ onRouteChange, isSignedIn, onNewSchedule }) => {
 
   if(isSignedIn) {
   	return(
-      <div className='tr'>
-      	<input type="file" name="file" onChange={changeHandler} />
-      	<button onClick={handleSubmission}>Submit</button>
-        <span onClick={() => onRouteChange('signout')} className='tr f3 link dim black underline pa3 pointer'>Sign Out</span>
+      <div>
+        <Form.Group controlId="formFile" className="mb-3">
+          <Form.Label>Update schedule:</Form.Label>
+          <Form.Control type="file" name="file" onChange={changeHandler} />
+        </Form.Group>
+        <Button onClick={handleSubmission}>Submit</Button>
+        <Button variant="secondary" onClick={() => onRouteChange('signout')}>Sign Out</Button>
       </div>
   	)
   }else{
