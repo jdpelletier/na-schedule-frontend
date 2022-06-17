@@ -26,7 +26,9 @@ function App () {
     if(startDate !== null && endDate !== null){
       return schedule.filter(sched => (sched.Date <= endDate && sched.Date >= startDate));
     }else{
-      return (schedule);
+      const d = new Date();
+      d.setDate(d.getDate()-14);
+      return schedule.filter(sched => (sched.Date >= d));
     }
   }
 
@@ -45,7 +47,7 @@ function App () {
            Header: key,
            Footer: key,
            accessor: key,
-           Cell: ({ value }) => { return format(new Date(value), 'MM/dd/yyy')}
+           Cell: ({ value }) => { return format(new Date(value), 'd-MMMM-yyy')}
          }
         )
       }else{
@@ -121,7 +123,7 @@ function App () {
             <div className="grid-item">
               <SideBar dateRange={dateRange} setDateRange={setDateRange} isSignedIn={isSignedIn}
               onRouteChange={onRouteChange} onNewSchedule={onNewSchedule} names={names}
-              setPage={setPage}/>
+              setPage={setPage} />
             </div>
           </div>
       </div>

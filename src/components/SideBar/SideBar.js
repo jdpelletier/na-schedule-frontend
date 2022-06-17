@@ -5,7 +5,7 @@ import DateSelector from "../DateSelector/DateSelector"
 import { UploadFile } from "../UploadFile/UploadFile"
 import './SideBar.css'
 
-export const SideBar = ({ dateRange, setDateRange, isSignedIn, onRouteChange, onNewSchedule, names, setPage}) => {
+export const SideBar = ({ dateRange, setDateRange, isSignedIn, onRouteChange, onNewSchedule, names, setPage }) => {
 
   const training = () => {
     setPage("training")
@@ -22,7 +22,7 @@ export const SideBar = ({ dateRange, setDateRange, isSignedIn, onRouteChange, on
       </div>
       <div className="container">
         <div className="item">
-          <DateSelector dateRange={dateRange} setDateRange={setDateRange}/>
+          <DateSelector dateRange={dateRange} setDateRange={setDateRange} />
         </div>
         <div className="item">
           <IndividualDownload names={names} />

@@ -1,6 +1,7 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./DateSelector.css"
+import { format } from "date-fns"
 
 const DateSelector = ({ dateRange, setDateRange }) => {
   const [startDate, endDate] = dateRange;
