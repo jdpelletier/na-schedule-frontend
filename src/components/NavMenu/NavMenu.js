@@ -24,10 +24,9 @@ const NavMenu = ({page, setPage, setSubmit, setViewlog}) => {
   if(page === "nightlog"){
     return(
       <div className="navContainer">
-        <Navbar collapseonselect fixed='top' expand="sm">
+        <Navbar expand="lg">
           <Container>
-            <Navbar.Toggle id="responsive-navbar-nav" />
-            <Navbar.Collapse id="responsive-navbar-nav">
+            <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
                 <Nav.Link onClick={() => setPage('home')}>Home</Nav.Link>
                 <Nav.Link onClick={() => setPage('links')}>Useful Links</Nav.Link>
