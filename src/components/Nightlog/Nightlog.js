@@ -38,7 +38,7 @@ export const Nightlog = ({setPage}) => {
   }
 
   useEffect(() => {
-    fetch("http://localhost:5000/nightlogs")
+    fetch("http://98.151.195.125:5000/nightlogs")
       .then(response => response.json())
       .then(data => {
         setLogs([...data])
@@ -50,7 +50,7 @@ export const Nightlog = ({setPage}) => {
     let opts = {
       'LogID': lid,
     }
-    fetch('http://localhost:5000/viewnightlog', {
+    fetch('http://98.151.195.125:5000/viewnightlog', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(opts)
