@@ -47,7 +47,7 @@ const NightlogSubmission = ({setSubmit, setLogs, logid}) => {
       }).then(response => response.json())
         .then(data => {
           if(data['success']===true){
-            fetch("http://98.151.195.125:5000/nightlogs")
+            fetch("http://192.168.1.182:5000/nightlogs")
               .then(res => res.json())
               .then(dat => {
                 setSubmit(false)
