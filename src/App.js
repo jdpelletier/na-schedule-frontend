@@ -12,6 +12,7 @@ function App () {
   const [schedule, setSchedule] = useState([])
   const [columns, setColumns] = useState([])
   const [holidays, setHolidays] = useState([])
+  const [staff, setStaff] = useState('')
   //TODO figure out why I have to ignore this
   // eslint-disable-next-line
   const [route, setRoute] = useState('signin')
@@ -20,6 +21,7 @@ function App () {
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
   const [names, setNames] = useState([])
+
 
   const filteredSchedule = () => {
     if(startDate !== null && endDate !== null){
@@ -49,7 +51,7 @@ function App () {
            Cell: ({ value }) => { return format(new Date(value), 'd-MMMM-yyy')}
          }
         )
-      }else{
+      }else if (key!=='Holiday'){
         COLUMNS.push(
          {
            Header: key,
@@ -63,8 +65,7 @@ function App () {
     return COLUMNS;
   }
 
-  const todayTime = () => {
-    const d = new Date();
+  const convertTime = (d) => {
     return d.getTime()-(d.getTime()%86400000) - 50400000
   }
 
@@ -74,15 +75,7 @@ function App () {
       .then(data => {
         setSchedule([...data])
         setColumns([...cols(data)])
-      });
-    fetch("http://localhost:5000/holidays")
-      .then(response => response.json())
-      .then(data => {
-        const dates = []
-        for (var date in data) {
-          dates.push(data[date]["Date"])
-        }
-        setHolidays([...dates])
+        findStaffandHolidays(data)
       });
   }, [])
 
@@ -98,6 +91,30 @@ function App () {
   const onNewSchedule = (data) => {
     setSchedule([...data])
     setColumns([...cols(data)])
+    findStaffandHolidays(data)
+  }
+
+  const findStaffandHolidays = (data) => {
+    const hol = []
+    for (var day in data){
+      if(data[day].Holiday === 'X'){
+        hol.push(data[day].Date)
+      }
+      if(data[day].Date === convertTime(new Date())) {
+        parseStaff(data[day])
+      }
+    }
+    setHolidays([...hol])
+  }
+
+  const parseStaff = (day) => {
+    const working = []
+    for(var key in day){
+      if(['NAH', 'NA1', 'NAH2'].includes(day[key])){
+        working.push(key + " " + day[key])
+      }
+    }
+    setStaff(working)
   }
 
   if (schedule.length === 0) {
@@ -112,7 +129,7 @@ function App () {
             <Table dat={filteredSchedule()} cols={columns} dateRange={dateRange} setDateRange={setDateRange}
               getCellProps={cellInfo => ({
                 style: {
-                  fontWeight: cellInfo.value === todayTime() ? "bold" :
+                  fontWeight: cellInfo.value === convertTime(new Date()) ? "bold" :
                               null,
                   backgroundColor: ["NAH", "NAH2", "NA1"].includes(cellInfo.value) ? "#FFC863" :
                                    cellInfo.value === "SD" ? "#FFFF64" :
@@ -128,7 +145,7 @@ function App () {
             </div>
             <div className="grid-item">
               <SideBar isSignedIn={isSignedIn} onRouteChange={onRouteChange} onNewSchedule={onNewSchedule}
-              names={names} setPage={setPage} />
+              names={names} setPage={setPage} staff={staff}/>
             </div>
           </div>
       </div>

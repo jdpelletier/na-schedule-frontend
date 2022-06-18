@@ -6,7 +6,8 @@ import { IndividualDownload } from "../IndividualDownload/IndividualDownload"
 import { UploadFile } from "../UploadFile/UploadFile"
 import './SideBar.css'
 
-export const SideBar = ({ isSignedIn, onRouteChange, onNewSchedule, names, setPage }) => {
+export const SideBar = ({ isSignedIn, onRouteChange, onNewSchedule, names, setPage, staff }) => {
+
 
   // const [staff, setStaff] = useState([])
 
@@ -39,7 +40,7 @@ export const SideBar = ({ isSignedIn, onRouteChange, onNewSchedule, names, setPa
             <Card.Body>
               <Card.Title className="f3" style={{ height: '2rem' }}>Staff Tonight</Card.Title>
               <Card.Text>
-                Staff goes here
+                {staff}
               </Card.Text>
             </Card.Body>
           </Card>
