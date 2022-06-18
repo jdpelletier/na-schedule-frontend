@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { format } from "date-fns"
 
 import { Table } from "./components/Table/Table";
@@ -69,6 +69,19 @@ function App () {
     return d.getTime()-(d.getTime()%86400000) - 50400000
   }
 
+  const findStaffandHolidays = useCallback((data)=> {
+    const hol = []
+    for (var day in data){
+      if(data[day].Holiday === 'X'){
+        hol.push(data[day].Date)
+      }
+      if(data[day].Date === convertTime(new Date())) {
+        parseStaff(data[day])
+      }
+    }
+    setHolidays([...hol])
+  }, [])
+
   useEffect(() => {
     fetch("http://localhost:5000/")
       .then(response => response.json())
@@ -77,7 +90,7 @@ function App () {
         setColumns([...cols(data)])
         findStaffandHolidays(data)
       });
-  }, [])
+  }, [findStaffandHolidays])
 
   const onRouteChange = (route) => {
     if (route === 'signout') {
@@ -92,19 +105,6 @@ function App () {
     setSchedule([...data])
     setColumns([...cols(data)])
     findStaffandHolidays(data)
-  }
-
-  const findStaffandHolidays = (data) => {
-    const hol = []
-    for (var day in data){
-      if(data[day].Holiday === 'X'){
-        hol.push(data[day].Date)
-      }
-      if(data[day].Date === convertTime(new Date())) {
-        parseStaff(data[day])
-      }
-    }
-    setHolidays([...hol])
   }
 
   const parseStaff = (day) => {

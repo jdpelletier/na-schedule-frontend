@@ -81,7 +81,7 @@ const NightlogSubmission = ({setSubmit, setLogs, logid}) => {
         <Row className="mb-3">
           <Form.Group as={Col} className="mb-3" controlId="date">
             <Form.Label>Date:</Form.Label>
-            <Form.Control type="text" onChange={(e) => setDate(e.target.value)} />
+            <Form.Control type="Date" defaultValue={todaystr} onChange={(e) => setDate(e.target.value)} />
           </Form.Group>
           <Form.Group as={Col} className="mb-3" controlId="keyword">
             <Form.Label>Select a Keyword:</Form.Label>
