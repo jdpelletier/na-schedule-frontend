@@ -13,13 +13,13 @@ export const Nightlog = ({setPage}) => {
   const [columns, setColumns] = useState([]);
   const [submit, setSubmit] = useState(false);
   const [viewlog, setViewlog] = useState(false);
-  const [logid, setLogid] = useState("");
+  const [logid, setLogid] = useState("0");
   const [logtoview, setLogtoview] = useState({});
 
-  const cols = (schedule) => {
+  const cols = (nightlog) => {
     const COLUMNS = [];
-    const first = schedule[0];
-    const last = schedule[schedule.length - 1]
+    const first = nightlog[0];
+    const last = nightlog[nightlog.length - 1]
     setLogid(parseInt(last.LogID) + 1)
 
     for (var key in first) {
