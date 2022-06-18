@@ -83,7 +83,7 @@ function App () {
   }, [])
 
   useEffect(() => {
-    fetch("http://localhost:5000/")
+    fetch("http://192.168.1.182:5000/")
       .then(response => response.json())
       .then(data => {
         setSchedule([...data])
