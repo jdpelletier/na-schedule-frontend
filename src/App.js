@@ -1,11 +1,11 @@
-
 import React, { useState, useEffect } from 'react';
+import { format } from "date-fns"
+
 import { Table } from "./components/Table/Table";
 import { SideBar } from "./components/SideBar/SideBar";
-import { Training } from "./components/Training/Training"
 import { Nightlog } from "./components/Nightlog/Nightlog"
-import { Cameras } from "./components/Cameras/Cameras"
-import { format } from "date-fns"
+import { Links } from "./components/Links/Links"
+
 import "./App.css"
 
 function App () {
@@ -20,8 +20,6 @@ function App () {
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
   const [names, setNames] = useState([])
-
-
 
   const filteredSchedule = () => {
     if(startDate !== null && endDate !== null){
@@ -65,6 +63,11 @@ function App () {
     return COLUMNS;
   }
 
+  const todayTime = () => {
+    const d = new Date();
+    return d.getTime()-(d.getTime()%86400000) - 50400000
+  }
+
   useEffect(() => {
     fetch("http://localhost:5000/")
       .then(response => response.json())
@@ -106,9 +109,11 @@ function App () {
       <div>
         <div className="grid-container">
           <div className="grid-item">
-            <Table dat={filteredSchedule()} cols={columns}
+            <Table dat={filteredSchedule()} cols={columns} dateRange={dateRange} setDateRange={setDateRange}
               getCellProps={cellInfo => ({
                 style: {
+                  fontWeight: cellInfo.value === todayTime() ? "bold" :
+                              null,
                   backgroundColor: ["NAH", "NAH2", "NA1"].includes(cellInfo.value) ? "#FFC863" :
                                    cellInfo.value === "SD" ? "#FFFF64" :
                                    cellInfo.value === "HQ" ? "#2EB22E" :
@@ -122,28 +127,21 @@ function App () {
               })}/>
             </div>
             <div className="grid-item">
-              <SideBar dateRange={dateRange} setDateRange={setDateRange} isSignedIn={isSignedIn}
-              onRouteChange={onRouteChange} onNewSchedule={onNewSchedule} names={names}
-              setPage={setPage} />
+              <SideBar isSignedIn={isSignedIn} onRouteChange={onRouteChange} onNewSchedule={onNewSchedule}
+              names={names} setPage={setPage} />
             </div>
           </div>
       </div>
     );
-  }else if(page === "training"){
+  }else if(page === "links"){
     return(
-      <Training setPage={setPage}/>
+      <Links setPage={setPage}/>
     )
   }else if(page === "nightlog"){
     return(
       <Nightlog setPage={setPage}/>
     )
-  }else if(page === "cameras"){
-    return(
-      <Cameras setPage={setPage}/>
-    )
   }
-
-
 }
 
 

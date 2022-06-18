@@ -1,11 +1,23 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+
 import { IndividualDownload } from "../IndividualDownload/IndividualDownload"
-import DateSelector from "../DateSelector/DateSelector"
 import { UploadFile } from "../UploadFile/UploadFile"
 import './SideBar.css'
 
-export const SideBar = ({ dateRange, setDateRange, isSignedIn, onRouteChange, onNewSchedule, names, setPage }) => {
+export const SideBar = ({ isSignedIn, onRouteChange, onNewSchedule, names, setPage }) => {
+
+  // const [staff, setStaff] = useState([])
+
+  // useEffect(() => {
+  //   const day = format(new Date(), 'yyy-MM-d')
+  //   fetch("https://www.keck.hawaii.edu/software/db_api/telSchedule.php?cmd=getNightStaff&date=" + day)
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       setStaff([...data])
+  //     });
+  // }, [])
 
   return (
     <div>
@@ -14,19 +26,23 @@ export const SideBar = ({ dateRange, setDateRange, isSignedIn, onRouteChange, on
       </div>
       <div className="container">
         <div className="item">
-          <DateSelector dateRange={dateRange} setDateRange={setDateRange} />
-        </div>
-        <div className="item">
           <IndividualDownload names={names} />
         </div>
         <div className="item">
           <Button variant="secondary" onClick={() => setPage('nightlog')}>Nightlog</Button>
         </div>
         <div className="item">
-          <Button variant="secondary" onClick={() => setPage('training')}>Training Documents</Button>
+          <Button variant="secondary" onClick={() => setPage('links')}>Useful Links</Button>
         </div>
         <div className="item">
-          <Button variant="secondary" onClick={() => setPage('cameras')}>Cameras</Button>
+          <Card>
+            <Card.Body>
+              <Card.Title className="f3" style={{ height: '2rem' }}>Staff Tonight</Card.Title>
+              <Card.Text>
+                Staff goes here
+              </Card.Text>
+            </Card.Body>
+          </Card>
         </div>
       </div>
     </div>

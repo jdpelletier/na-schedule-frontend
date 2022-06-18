@@ -1,25 +1,27 @@
 import React, { useMemo }  from 'react'
 import { useTable, useFilters} from 'react-table'
+import { format } from "date-fns"
+
 import './Table.css'
 import { ColumnFilter } from './ColumnFilter'
+import DateSelector from "../DateSelector/DateSelector"
 
 
-export const Table = ({dat, cols, getCellProps, hiddenColumns=[]}) => {
+export const Table = ({dat, cols, dateRange, setDateRange, getCellProps, hiddenColumns=[]}) => {
 
   const columns = useMemo(() => cols, [cols])
   const data = useMemo(() => dat, [dat])
 
   const defaultColumn = useMemo(() => {
     return {
-      Filter: ColumnFilter
+      Filter: ColumnFilter,
+      Dates: DateSelector
     }
   }, [])
 
   const telSchedule = (date) => {
-    const day = new Date(date)
-    const month = day.getMonth() + 1
-    const linkDate = day.getFullYear() + '-' + month + '-' + day.getDate()
-    window.open('https://www2.keck.hawaii.edu/observing/keckSchedule/keckSchedule.php?cmd=getSchedule&date=' + linkDate, "_blank")
+    const day = format(new Date(date), 'yyy-MM-d')
+    window.open('https://www2.keck.hawaii.edu/observing/keckSchedule/keckSchedule.php?cmd=getSchedule&date=' + day, "_blank")
   }
 
   // const isolateColumn = (line) => {
@@ -55,7 +57,8 @@ export const Table = ({dat, cols, getCellProps, hiddenColumns=[]}) => {
                   <tr {...headerGroup.getHeaderGroupProps()}>
                     {headerGroup.headers.map( (column) => (
                       <th {...column.getHeaderProps()}><div className="checkmark"><input type='checkbox' {...column.getToggleHiddenProps()} /></div><br></br>{column.render('Header')}
-                        <div>{column.canFilter ? column.render('Filter') : null}</div>
+                        {column.Header === "Date" ? column.canFilter=false : null}
+                        <div>{column.canFilter ? column.render('Filter') : <DateSelector dateRange={dateRange} setDateRange={setDateRange} />}</div>
                       </th>))}
                   </tr>
                 ))}

@@ -6,9 +6,6 @@ const DateSelector = ({ dateRange, setDateRange }) => {
   const [startDate, endDate] = dateRange;
   return(
     <div>
-      <label className="date-label">
-        Enter a date range:
-      </label>
       <DatePicker
         selectsRange={true}
         startDate={startDate}

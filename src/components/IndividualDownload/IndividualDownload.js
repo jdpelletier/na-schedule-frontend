@@ -34,7 +34,7 @@ export const IndividualDownload = ({names}) => {
 
   return (
     <div>
-      <Button variant="secondary" onClick={openModal}>Download Individual Schedule</Button>
+      <Button variant="secondary" size="sm" onClick={openModal}>Download Individual Schedule</Button>
       <Modal show={popupOpen} onHide={closeModal}>
         <Modal.Title>Choose a schedule to download</Modal.Title>
         <Modal.Body>{names.map(name => {

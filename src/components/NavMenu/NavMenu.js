@@ -29,8 +29,7 @@ const NavMenu = ({page, setPage, setSubmit, setViewlog}) => {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
                 <Nav.Link onClick={() => setPage('home')}>Home</Nav.Link>
-                <Nav.Link onClick={() => setPage('training')}>Training Documents</Nav.Link>
-                <Nav.Link onClick={() => setPage('cameras')}>Cameras</Nav.Link>
+                <Nav.Link onClick={() => setPage('links')}>Useful Links</Nav.Link>
                 <Nav.Link onClick={goNightlog}>Nightlogs</Nav.Link>
                 <Nav.Link onClick={goSubmit}>Submit New Nightlog</Nav.Link>
               </Nav>
@@ -47,8 +46,7 @@ const NavMenu = ({page, setPage, setSubmit, setViewlog}) => {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
                 <Nav.Link onClick={() => setPage('home')}>Home</Nav.Link>
-                <Nav.Link onClick={() => setPage('training')}>Training Documents</Nav.Link>
-                <Nav.Link onClick={() => setPage('cameras')}>Cameras</Nav.Link>
+                <Nav.Link onClick={() => setPage('links')}>Useful Links</Nav.Link>
                 <Nav.Link onClick={goNightlog}>Nightlogs</Nav.Link>
               </Nav>
             </Navbar.Collapse>
