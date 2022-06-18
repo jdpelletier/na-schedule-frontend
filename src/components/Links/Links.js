@@ -3,7 +3,6 @@ import Nav from 'react-bootstrap/Nav';
 import Accordion from 'react-bootstrap/Accordion';
 
 import NavMenu from "../NavMenu/NavMenu"
-import './Links.css'
 import Fills from '../../static/Fills.pdf'
 import NaHoursandCodes from '../../static/NightAttendantHoursandCodes.pdf'
 
