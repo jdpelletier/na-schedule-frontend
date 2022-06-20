@@ -40,14 +40,14 @@ const NightlogSubmission = ({setSubmit, setLogs, logid}) => {
       }
     }
     if (missing.length === 0){
-      fetch('http://98.151.195.125:5000/nightlogsubmition', {
+      fetch('http://localhost:5000/nightlogsubmition', {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(opts)
       }).then(response => response.json())
         .then(data => {
           if(data['success']===true){
-            fetch("http://192.168.1.182:5000/nightlogs")
+            fetch("http://localhost:5000/nightlogs")
               .then(res => res.json())
               .then(dat => {
                 setSubmit(false)

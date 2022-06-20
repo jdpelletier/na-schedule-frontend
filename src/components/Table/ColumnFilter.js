@@ -10,15 +10,25 @@ export const ColumnFilter = ({ column }) => {
     setFilter(value || undefined)
   }, 300)
 
-  // const input = column.Header.length - 1
+  let width = window.innerWidth;
+  let inSize;
+
+  if(width>750){
+    inSize = "4"
+  }else{
+    inSize="1"
+  }
 
   return (
     <span>
-      <input size={"5"} value={value || ''} onChange={(e) => {
-        setValue(e.target.value)
-        onChange(e.target.value)
-      }}
-    />
+      <div className="searchinput">
+        &#x1F50D;
+        <input size={inSize} value={value || ''} onChange={(e) => {
+          setValue(e.target.value)
+          onChange(e.target.value)
+        }}
+        />
+      </div>
     </span>
   )
 }

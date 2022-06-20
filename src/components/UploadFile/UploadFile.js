@@ -32,7 +32,7 @@ export const UploadFile = ({ onRouteChange, isSignedIn, onNewSchedule }) => {
       <div>
         <Form.Group controlId="formFile" className="mb-3">
           <Form.Label>Update schedule:</Form.Label>
-          <Form.Control type="file" name="file" onChange={changeHandler} />
+          <Form.Control type="file" name="file" size="sm" onChange={changeHandler} />
         </Form.Group>
         <Button onClick={handleSubmission}>Submit</Button>
         <Button variant="secondary" onClick={() => onRouteChange('signout')}>Sign Out</Button>

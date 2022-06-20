@@ -38,7 +38,7 @@ export const Nightlog = ({setPage}) => {
   }
 
   useEffect(() => {
-    fetch("http://192.168.1.182:5000/nightlogs")
+    fetch("http://localhost:5000/nightlogs")
       .then(response => response.json())
       .then(data => {
         setLogs([...data])
@@ -50,7 +50,7 @@ export const Nightlog = ({setPage}) => {
     let opts = {
       'LogID': lid,
     }
-    fetch('http://192.168.1.182:5000/viewnightlog', {
+    fetch('http://localhost:5000/viewnightlog', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(opts)
@@ -77,7 +77,7 @@ export const Nightlog = ({setPage}) => {
     return(
       <div>
         <NavMenu page={"nightlog"} setPage={setPage} setSubmit={setSubmit} setViewlog={setViewlog} />
-        <Card className="bg-black-70 text-white" style={{ width: '50rem' }}>
+        <Card className="bg-black-50 text-white" style={{ width: '50rem' }}>
           <Card.Body>
             <Card.Title className="f3" style={{ height: '2rem' }}>{logtoview.Topic}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">

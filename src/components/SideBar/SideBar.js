@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { format } from "date-fns"
 
 import { IndividualDownload } from "../IndividualDownload/IndividualDownload"
 import { UploadFile } from "../UploadFile/UploadFile"
@@ -9,19 +10,19 @@ import './SideBar.css'
 export const SideBar = ({ isSignedIn, onRouteChange, onNewSchedule, names, setPage, staff }) => {
 
 
-  // const [staff, setStaff] = useState([])
-
+  // const [staffTest, setStaffTest] = useState([])
+  //
   // useEffect(() => {
   //   const day = format(new Date(), 'yyy-MM-d')
-  //   fetch("https://www.keck.hawaii.edu/software/db_api/telSchedule.php?cmd=getNightStaff&date=" + day)
+  //   fetch("https://vm-appserver.keck.hawaii.edu/api/telSchedule?cmd=getNightStaff&date=" + day)
   //     .then(response => response.json())
   //     .then(data => {
-  //       setStaff([...data])
+  //       setStaffTest([...data])
   //     });
   // }, [])
 
   return (
-    <div>
+    <div classname="sidebarWrap">
       <div className="upload">
         <UploadFile isSignedIn={isSignedIn} onRouteChange={onRouteChange} onNewSchedule={onNewSchedule}/>
       </div>
@@ -38,7 +39,7 @@ export const SideBar = ({ isSignedIn, onRouteChange, onNewSchedule, names, setPa
         <div className="item">
           <Card>
             <Card.Body>
-              <Card.Title className="f3" style={{ height: '2rem' }}>Staff Tonight</Card.Title>
+              <Card.Title className="f3" style={{ height: '3.5rem' }}>Staff Tonight</Card.Title>
               <Card.Text>
                 {staff}
               </Card.Text>

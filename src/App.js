@@ -5,6 +5,7 @@ import { Table } from "./components/Table/Table";
 import { SideBar } from "./components/SideBar/SideBar";
 import { Nightlog } from "./components/Nightlog/Nightlog"
 import { Links } from "./components/Links/Links"
+import NavMenu from "./components/NavMenu/NavMenu"
 
 import "./App.css"
 
@@ -29,7 +30,8 @@ function App () {
     }else{
       const d = new Date();
       d.setDate(d.getDate()-14);
-      return schedule.filter(sched => (sched.Date >= d));
+      return schedule
+      // return schedule.filter(sched => (sched.Date >= d));
     }
   }
 
@@ -48,7 +50,7 @@ function App () {
            Header: key,
            Footer: key,
            accessor: key,
-           Cell: ({ value }) => { return format(new Date(value), 'd-MMMM-yyy')}
+           Cell: ({ value }) => { return format(new Date(value), 'd-MMMM-yy')}
          }
         )
       }else if (key!=='Holiday'){
@@ -83,7 +85,7 @@ function App () {
   }, [])
 
   useEffect(() => {
-    fetch("http://192.168.1.182:5000/")
+    fetch("http://192.168.1.95:5000/")
       .then(response => response.json())
       .then(data => {
         setSchedule([...data])
@@ -117,39 +119,54 @@ function App () {
     setStaff(working)
   }
 
+  let table = <Table dat={filteredSchedule()} cols={columns} dateRange={dateRange} setDateRange={setDateRange}
+                getCellProps={cellInfo => ({
+                  style: {
+                    fontWeight: cellInfo.value === convertTime(new Date()) ? "bold" :
+                                null,
+                    backgroundColor: ["NAH", "NAH2", "NA1"].includes(cellInfo.value) ? "#FFC863" :
+                                     cellInfo.value === "SD" ? "#FFFF64" :
+                                     cellInfo.value === "HQ" ? "#2EB22E" :
+                                     ["L9", "L14"].includes(cellInfo.value) ? "#346beb" :
+                                     ["x", "H"].includes(cellInfo.value)  ? "#00D897" :
+                                     holidays.includes(cellInfo.value) ? "#ed0c0c" :
+                                     // cellInfo.value === null ? "#FFFFFF":
+                                     // (cellInfo.value.toString().startsWith('O') && cellInfo.value.length < 4) ? "#FFFFFF":
+                                     null
+                  },
+                })}/>
+
+  let width = window.innerWidth;
+
   if (schedule.length === 0) {
         return <div />
       }
 
   if (page === "home"){
-    return (
-      <div>
-        <div className="grid-container">
-          <div className="grid-item">
-            <Table dat={filteredSchedule()} cols={columns} dateRange={dateRange} setDateRange={setDateRange}
-              getCellProps={cellInfo => ({
-                style: {
-                  fontWeight: cellInfo.value === convertTime(new Date()) ? "bold" :
-                              null,
-                  backgroundColor: ["NAH", "NAH2", "NA1"].includes(cellInfo.value) ? "#FFC863" :
-                                   cellInfo.value === "SD" ? "#FFFF64" :
-                                   cellInfo.value === "HQ" ? "#2EB22E" :
-                                   ["L9", "L14"].includes(cellInfo.value) ? "#346beb" :
-                                   ["x", "H"].includes(cellInfo.value)  ? "#00D897" :
-                                   holidays.includes(cellInfo.value) ? "#ed0c0c" :
-                                   // cellInfo.value === null ? "#FFFFFF":
-                                   // (cellInfo.value.toString().startsWith('O') && cellInfo.value.length < 4) ? "#FFFFFF":
-                                   null
-                },
-              })}/>
+    if(width>750){
+      return (
+        <div>
+          <div className="grid-container">
+            <div className="tablewrapDesktop">
+                {table}
+              </div>
+              <div className="sidebar-item">
+                <SideBar isSignedIn={isSignedIn} onRouteChange={onRouteChange} onNewSchedule={onNewSchedule}
+                         names={names} setPage={setPage} staff={staff}/>
+              </div>
             </div>
-            <div className="grid-item">
-              <SideBar isSignedIn={isSignedIn} onRouteChange={onRouteChange} onNewSchedule={onNewSchedule}
-              names={names} setPage={setPage} staff={staff}/>
-            </div>
+        </div>
+      );
+    }else{
+      return (
+        <div>
+          <NavMenu page={"nightlog"} setPage={setPage} />
+          <div className="tablewrapMobile">
+            {table}
           </div>
-      </div>
-    );
+        </div>
+      );
+    }
   }else if(page === "links"){
     return(
       <Links setPage={setPage}/>

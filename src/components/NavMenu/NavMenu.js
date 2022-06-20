@@ -24,14 +24,15 @@ const NavMenu = ({page, setPage, setSubmit, setViewlog}) => {
   if(page === "nightlog"){
     return(
       <div className="navContainer">
-        <Navbar expand="lg">
+        <Navbar collapseOnSelect expand="sm">
           <Container>
-            <Navbar.Collapse id="basic-navbar-nav">
+            <Navbar.Toggle aria-controls='resonsive-navbar-nav'/>
+            <Navbar.Collapse id="resonsive-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link onClick={() => setPage('home')}>Home</Nav.Link>
-                <Nav.Link onClick={() => setPage('links')}>Useful Links</Nav.Link>
-                <Nav.Link onClick={goNightlog}>Nightlogs</Nav.Link>
-                <Nav.Link onClick={goSubmit}>Submit New Nightlog</Nav.Link>
+                <Nav.Link className="f5" onClick={() => setPage('home')}>Home</Nav.Link>
+                <Nav.Link className="f5" onClick={() => setPage('links')}>Useful Links</Nav.Link>
+                <Nav.Link className="f5" onClick={goNightlog}>Nightlogs</Nav.Link>
+                <Nav.Link className="f5" onClick={goSubmit}>Submit New Nightlog</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>
@@ -41,13 +42,14 @@ const NavMenu = ({page, setPage, setSubmit, setViewlog}) => {
   }else{
     return(
       <div className="navContainer">
-        <Navbar expand="lg">
-          <Container>
-            <Navbar.Collapse id="basic-navbar-nav">
+      <Navbar collapseOnSelect defaultExpanded expand="sm">
+        <Container>
+          <Navbar.Toggle aria-controls='resonsive-navbar-nav'/>
+          <Navbar.Collapse id="resonsive-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link onClick={() => setPage('home')}>Home</Nav.Link>
-                <Nav.Link onClick={() => setPage('links')}>Useful Links</Nav.Link>
-                <Nav.Link onClick={goNightlog}>Nightlogs</Nav.Link>
+                <Nav.Link className="f5" onClick={() => setPage('home')}>Home</Nav.Link>
+                <Nav.Link className="f5" onClick={() => setPage('links')}>Useful Links</Nav.Link>
+                <Nav.Link className="f5" onClick={goNightlog}>Nightlogs</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>

@@ -48,51 +48,45 @@ export const Table = ({dat, cols, dateRange, setDateRange, getCellProps, hiddenC
 
   return (
     <>
-      <div className="grid-container">
-        <div className="grid-item">
-          <div className="tablewrap">
-            <table {...getTableProps()}>
-              <thead>
-                {headerGroups.map((headerGroup) => (
-                  <tr {...headerGroup.getHeaderGroupProps()}>
-                    {headerGroup.headers.map( (column) => (
-                      <th {...column.getHeaderProps()}><div className="checkmark"><input type='checkbox' {...column.getToggleHiddenProps()} /></div><br></br>{column.render('Header')}
-                        {column.Header === "Date" ? column.canFilter=false : null}
-                        <div>{column.canFilter ? column.render('Filter') : <DateSelector dateRange={dateRange} setDateRange={setDateRange} />}</div>
-                      </th>))}
-                  </tr>
-                ))}
-              </thead>
-              <tbody {...getTableBodyProps()}>
-                {rows.map(row=> {
-                  prepareRow(row)
-                  return (
-                    <tr className={row.original.DOW} {...row.getRowProps()}>
-                      {row.cells.map((cell) => {
-                        return <td {...cell.getCellProps([getCellProps(cell)])} onClick={(e) => {
-                          if (cell.column.Header==="Date") {
-                            telSchedule(row.original.Date, e)
-                          }
-                        }}>
-                        {cell.render('Cell')}</td>
-                      })}
-                    </tr>
-                  )
-                  })}
-              </tbody>
-              <tfoot>
-                {footerGroups.map((footerGroup) => (
-                    <tr {...footerGroup.getFooterGroupProps()}>
-                      {footerGroup.headers.map(column => (
-                          <td {...column.getFooterProps}>{column.render('Footer')}</td>
-                        ))}
-                    </tr>
+      <table {...getTableProps()}>
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map( (column) => (
+                <th {...column.getHeaderProps()} className={column.Header}><div className="checkmark"><input type='checkbox' {...column.getToggleHiddenProps()} /></div><br></br>{column.render('Header')}
+                  {column.Header === "Date" ? column.canFilter=false : null}
+                  <div>{column.canFilter ? column.render('Filter') : <DateSelector dateRange={dateRange} setDateRange={setDateRange} />}</div>
+                </th>))}
+            </tr>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map(row=> {
+            prepareRow(row)
+            return (
+              <tr className={row.original.DOW} {...row.getRowProps()}>
+                {row.cells.map((cell) => {
+                  return <td {...cell.getCellProps([getCellProps(cell)])} onClick={(e) => {
+                    if (cell.column.Header==="Date") {
+                      telSchedule(row.original.Date, e)
+                    }
+                  }}>
+                  {cell.render('Cell')}</td>
+                })}
+              </tr>
+            )
+            })}
+        </tbody>
+        <tfoot>
+          {footerGroups.map((footerGroup) => (
+              <tr {...footerGroup.getFooterGroupProps()}>
+                {footerGroup.headers.map(column => (
+                    <td {...column.getFooterProps}>{column.render('Footer')}</td>
                   ))}
-              </tfoot>
-            </table>
-          </div>
-        </div>
-      </div>
+              </tr>
+            ))}
+        </tfoot>
+      </table>
     </>
   )
 }

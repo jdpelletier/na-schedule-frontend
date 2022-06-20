@@ -1,6 +1,6 @@
 import React, { useMemo }  from 'react'
 import { useTable, useFilters} from 'react-table'
-import './LogTable.css'
+//inherits CSS from table.css
 import { ColumnFilter } from './ColumnFilter'
 
 

@@ -1,3 +1,7 @@
-.date-label {
-  padding-right: 5px;
+@media (max-width: 750px) {
+  .react-datepicker-wrapper,
+  .react-datepicker__input-container,
+  .react-datepicker__input-container input {
+    width: 100%;
+  }
 }
