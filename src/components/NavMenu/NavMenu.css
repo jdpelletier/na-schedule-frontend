@@ -6,3 +6,14 @@
 .navbar-light .navbar-nav .nav-link {
     color: rgba(0,0,0,1);
 }
+
+.bg-animate,
+.bg-animate:hover,
+.bg-animate:focus {
+  transition: background-color .15s ease-in-out;
+}
+
+.navbutton:hover {
+  background-color: silver;
+  border-color: black;
+}

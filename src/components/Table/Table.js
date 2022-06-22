@@ -7,7 +7,7 @@ import { ColumnFilter } from './ColumnFilter'
 import DateSelector from "../DateSelector/DateSelector"
 
 
-export const Table = ({dat, cols, dateRange, setDateRange, getCellProps, hiddenColumns=[]}) => {
+export const Table = ({dat, cols, dateRange, setDateRange, holidays, today, getCellProps, hiddenColumns=[]}) => {
 
   const columns = useMemo(() => cols, [cols])
   const data = useMemo(() => dat, [dat])
@@ -23,10 +23,6 @@ export const Table = ({dat, cols, dateRange, setDateRange, getCellProps, hiddenC
     const day = format(new Date(date), 'yyy-MM-d')
     window.open('https://www2.keck.hawaii.edu/observing/keckSchedule/keckSchedule.php?cmd=getSchedule&date=' + day, "_blank")
   }
-
-  // const isolateColumn = (line) => {
-  //   console.log(line)
-  // }
 
   const {
     getTableProps,
@@ -64,7 +60,10 @@ export const Table = ({dat, cols, dateRange, setDateRange, getCellProps, hiddenC
           {rows.map(row=> {
             prepareRow(row)
             return (
-              <tr className={row.original.DOW} {...row.getRowProps()}>
+              <tr className={holidays.includes(row.original.Date) ? "holiday":
+                             row.original.Date === today ? "today":
+                             row.original.DOW}
+                             {...row.getRowProps()}>
                 {row.cells.map((cell) => {
                   return <td {...cell.getCellProps([getCellProps(cell)])} onClick={(e) => {
                     if (cell.column.Header==="Date") {

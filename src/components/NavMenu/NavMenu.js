@@ -1,62 +1,34 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
 
 import './NavMenu.css'
 
-const NavMenu = ({page, setPage, setSubmit, setViewlog}) => {
-
-  const goNightlog = () => {
-    if(page === "nightlog"){
+const NavMenu = ({page, setPage, setViewlog}) => {
+  const goNightlogs = () => {
+    if(page==="nightlogs"){
       setViewlog(false)
-      setSubmit(false)
     }else{
-      setPage("nightlog")
+      setPage("nightlogs")
     }
   }
 
-  const goSubmit = () => {
-    setViewlog(false)
-    setSubmit(true)
-  }
-
-  if(page === "nightlog"){
-    return(
-      <div className="navContainer">
-        <Navbar collapseOnSelect expand="sm">
-          <Container>
-            <Navbar.Toggle aria-controls='resonsive-navbar-nav'/>
-            <Navbar.Collapse id="resonsive-navbar-nav">
-              <Nav className="me-auto">
-                <Nav.Link className="f5" onClick={() => setPage('home')}>Home</Nav.Link>
-                <Nav.Link className="f5" onClick={() => setPage('links')}>Useful Links</Nav.Link>
-                <Nav.Link className="f5" onClick={goNightlog}>Nightlogs</Nav.Link>
-                <Nav.Link className="f5" onClick={goSubmit}>Submit New Nightlog</Nav.Link>
-              </Nav>
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
-      </div>
-    )
-  }else{
-    return(
-      <div className="navContainer">
-      <Navbar collapseOnSelect defaultExpanded expand="sm">
-        <Container>
+  return(
+    <div className="navContainer">
+      <Navbar collapseOnSelect expand="sm">
           <Navbar.Toggle aria-controls='resonsive-navbar-nav'/>
           <Navbar.Collapse id="resonsive-navbar-nav">
-              <Nav className="me-auto">
-                <Nav.Link className="f5" onClick={() => setPage('home')}>Home</Nav.Link>
-                <Nav.Link className="f5" onClick={() => setPage('links')}>Useful Links</Nav.Link>
-                <Nav.Link className="f5" onClick={goNightlog}>Nightlogs</Nav.Link>
-              </Nav>
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
-      </div>
-    )
-  }
+            <Nav className="me-auto">
+              <Nav.Link as={Button} className="navbutton f5 b--black bg-light-silver hover-near-black" onClick={() => setPage('home')}>Home</Nav.Link>
+              <Nav.Link as={Button} className="navbutton f5 b--black bg-light-silver" onClick={() => setPage('links')}>Useful Links</Nav.Link>
+              <Nav.Link as={Button} className="navbutton f5 b--black bg-light-silver" onClick={goNightlogs}>Nightlogs</Nav.Link>
+              <Nav.Link as={Button} className="navbutton f5 b--black bg-light-silver" onClick={() => setPage('submitnightlog')}>Submit New Nightlog</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+      </Navbar>
+    </div>
+  )
 }
 
 export default NavMenu

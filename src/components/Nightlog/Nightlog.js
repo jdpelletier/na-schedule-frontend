@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-
-import NightlogSubmission from "../NightlogSubmission/NightlogSubmission"
 import { LogTable } from "./LogTable"
 import './Nightlog.css'
 import NavMenu from "../NavMenu/NavMenu"
@@ -11,16 +9,12 @@ export const Nightlog = ({setPage}) => {
 
   const [logs, setLogs] = useState([]);
   const [columns, setColumns] = useState([]);
-  const [submit, setSubmit] = useState(false);
   const [viewlog, setViewlog] = useState(false);
-  const [logid, setLogid] = useState("0");
   const [logtoview, setLogtoview] = useState({});
 
   const cols = (nightlog) => {
     const COLUMNS = [];
     const first = nightlog[0];
-    const last = nightlog[nightlog.length - 1]
-    setLogid(parseInt(last.LogID) + 1)
 
     for (var key in first) {
       if(key !== "Details"){
@@ -38,7 +32,7 @@ export const Nightlog = ({setPage}) => {
   }
 
   useEffect(() => {
-    fetch("http://localhost:5000/nightlogs")
+    fetch("http://192.168.1.95:5000/nightlogs")
       .then(response => response.json())
       .then(data => {
         setLogs([...data])
@@ -50,7 +44,7 @@ export const Nightlog = ({setPage}) => {
     let opts = {
       'LogID': lid,
     }
-    fetch('http://localhost:5000/viewnightlog', {
+    fetch('http://192.168.1.95:5000/viewnightlog', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(opts)
@@ -63,22 +57,16 @@ export const Nightlog = ({setPage}) => {
 
   const back = () => {
     setViewlog(false)
-    setSubmit(false)
   }
 
-  if (submit === true){
+
+  if (viewlog === true){
     return(
       <div>
-        <NavMenu page={"nightlog"} setPage={setPage} setSubmit={setSubmit} setViewlog={setViewlog}/>
-        <NightlogSubmission setSubmit={setSubmit} setLogs={setLogs} logid={logid}/>
-      </div>
-    )
-  }else if (viewlog === true){
-    return(
-      <div>
-        <NavMenu page={"nightlog"} setPage={setPage} setSubmit={setSubmit} setViewlog={setViewlog} />
-        <Card className="bg-black-50 text-white" style={{ width: '50rem' }}>
+        <NavMenu page={"nightlogs"} setPage={setPage} setViewlog={setViewlog}/>
+        <Card className="bg-black-50 text-white" style={{ width: '100%' }}>
           <Card.Body>
+            <Button variant="secondary" onClick={back}>Back</Button>
             <Card.Title className="f3" style={{ height: '2rem' }}>{logtoview.Topic}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">
                Submitted by: {logtoview.Name} on {logtoview.Date}<br/>
@@ -87,7 +75,6 @@ export const Nightlog = ({setPage}) => {
             <Card.Text className="f4">
               {logtoview.Details}
             </Card.Text>
-            <Button variant="secondary" onClick={back}>Back</Button>
           </Card.Body>
         </Card>
       </div>
@@ -95,7 +82,7 @@ export const Nightlog = ({setPage}) => {
   }else{
     return(
       <div>
-        <NavMenu page={"nightlog"} setPage={setPage} setSubmit={setSubmit} setViewlog={setViewlog} />
+        <NavMenu setPage={setPage} />
         <LogTable dat={logs} cols={columns} openLog={openLog}
           getCellProps={cellInfo => ({
             style: {

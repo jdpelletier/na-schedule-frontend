@@ -3,9 +3,10 @@ import { format } from "date-fns"
 
 import { Table } from "./components/Table/Table";
 import { SideBar } from "./components/SideBar/SideBar";
-import { Nightlog } from "./components/Nightlog/Nightlog"
-import { Links } from "./components/Links/Links"
-import NavMenu from "./components/NavMenu/NavMenu"
+import { Nightlog } from "./components/Nightlog/Nightlog";
+import NightlogSubmission from "./components/NightlogSubmission/NightlogSubmission"
+import { Links } from "./components/Links/Links";
+import NavMenu from "./components/NavMenu/NavMenu";
 
 import "./App.css"
 
@@ -119,19 +120,14 @@ function App () {
     setStaff(working)
   }
 
-  let table = <Table dat={filteredSchedule()} cols={columns} dateRange={dateRange} setDateRange={setDateRange}
+  let table = <Table dat={filteredSchedule()} cols={columns} dateRange={dateRange} setDateRange={setDateRange} holidays={holidays} today={convertTime(new Date())}
                 getCellProps={cellInfo => ({
                   style: {
-                    fontWeight: cellInfo.value === convertTime(new Date()) ? "bold" :
-                                null,
                     backgroundColor: ["NAH", "NAH2", "NA1"].includes(cellInfo.value) ? "#FFC863" :
                                      cellInfo.value === "SD" ? "#FFFF64" :
                                      cellInfo.value === "HQ" ? "#2EB22E" :
                                      ["L9", "L14"].includes(cellInfo.value) ? "#346beb" :
                                      ["x", "H"].includes(cellInfo.value)  ? "#00D897" :
-                                     holidays.includes(cellInfo.value) ? "#ed0c0c" :
-                                     // cellInfo.value === null ? "#FFFFFF":
-                                     // (cellInfo.value.toString().startsWith('O') && cellInfo.value.length < 4) ? "#FFFFFF":
                                      null
                   },
                 })}/>
@@ -160,7 +156,7 @@ function App () {
     }else{
       return (
         <div>
-          <NavMenu page={"nightlog"} setPage={setPage} />
+          <NavMenu page={"home"} setPage={setPage} />
           <div className="tablewrapMobile">
             {table}
           </div>
@@ -169,11 +165,15 @@ function App () {
     }
   }else if(page === "links"){
     return(
-      <Links setPage={setPage}/>
+      <Links setPage={setPage} />
     )
-  }else if(page === "nightlog"){
+  }else if(page === "nightlogs"){
     return(
-      <Nightlog setPage={setPage}/>
+      <Nightlog setPage={setPage} />
+    )
+  }else if(page === "submitnightlog"){
+    return(
+      <NightlogSubmission setPage={setPage} />
     )
   }
 }
