@@ -5,12 +5,12 @@ import { LogTable } from "./LogTable"
 import './Nightlog.css'
 import NavMenu from "../NavMenu/NavMenu"
 
-export const Nightlog = ({setPage}) => {
+export const Nightlog = ({setPage, logtoview, setLogtoview, setEditNL}) => {
 
   const [logs, setLogs] = useState([]);
   const [columns, setColumns] = useState([]);
   const [viewlog, setViewlog] = useState(false);
-  const [logtoview, setLogtoview] = useState({});
+
 
   const cols = (nightlog) => {
     const COLUMNS = [];
@@ -59,24 +59,47 @@ export const Nightlog = ({setPage}) => {
     setViewlog(false)
   }
 
+  const del = () => {
+    let opts = {
+      'LogID': logtoview.LogID,
+    }
+    fetch('http://192.168.1.95:5000/deletenightlog', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(opts)
+    }).then(response => response.json())
+      .then(setViewlog(false))
+      window.location.reload(false)
+      setPage("nightlogs")
+    }
+
+  const edit = () => {
+      setEditNL(true)
+      setPage("submitnightlog")
+      };
+
 
   if (viewlog === true){
     return(
-      <div>
+      <div className="nlog">
         <NavMenu page={"nightlogs"} setPage={setPage} setViewlog={setViewlog}/>
-        <Card className="bg-black-50 text-white" style={{ width: '100%' }}>
-          <Card.Body>
-            <Button variant="secondary" onClick={back}>Back</Button>
-            <Card.Title className="f3" style={{ height: '2rem' }}>{logtoview.Topic}</Card.Title>
-            <Card.Subtitle className="mb-2 text-muted">
-               Submitted by: {logtoview.Name} on {logtoview.Date}<br/>
-              {logtoview.Keyword}
-            </Card.Subtitle>
-            <Card.Text className="f4">
-              {logtoview.Details}
-            </Card.Text>
-          </Card.Body>
-        </Card>
+        <div className="nlogView">
+          <Card className="bg-black-50 text-white nlogView" >
+            <Card.Body>
+              <Button variant="secondary" onClick={back}>Back</Button>
+              <Button variant="secondary" onClick={del}>Delete</Button>
+              <Button variant="secondary" onClick={edit}>Edit</Button>
+              <Card.Title className="f3" style={{ height: '2rem' }}>{logtoview.Topic}</Card.Title>
+              <Card.Subtitle className="mb-2">
+                 Submitted by: {logtoview.Name} on {logtoview.Date}<br/>
+                {logtoview.Keyword}
+              </Card.Subtitle>
+              <Card.Text className="f4">
+                {logtoview.Details}
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </div>
       </div>
     )
   }else{

@@ -13,3 +13,19 @@
 .formwrapper {
   width: 750px;
 }
+
+.nlog{
+  overflow: hidden;
+}
+
+.nlogView {
+  height: 93vh;
+  overflow-y: auto;
+}
+
+@media (max-width: 750px) {
+  .nlogView {
+    height: 85vh;
+    overflow-y: scroll;
+  }
+}

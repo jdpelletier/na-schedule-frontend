@@ -23,6 +23,8 @@ function App () {
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
   const [names, setNames] = useState([])
+  const [logtoview, setLogtoview] = useState({});
+  const [editNL, setEditNL] = useState(false)
 
 
   const filteredSchedule = () => {
@@ -169,11 +171,11 @@ function App () {
     )
   }else if(page === "nightlogs"){
     return(
-      <Nightlog setPage={setPage} />
+      <Nightlog setPage={setPage} logtoview={logtoview} setLogtoview={setLogtoview} setEditNL={setEditNL}/>
     )
   }else if(page === "submitnightlog"){
     return(
-      <NightlogSubmission setPage={setPage} />
+      <NightlogSubmission setPage={setPage} logtoview={logtoview} editNL={editNL} setEditNL={setEditNL}/>
     )
   }
 }

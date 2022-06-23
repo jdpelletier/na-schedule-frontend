@@ -13,6 +13,7 @@ import Today from '../../static/schedToday.PNG'
 import Night from '../../static/schedNight.PNG'
 import Day from '../../static/schedDay.PNG'
 import Leave from '../../static/schedLeave.PNG'
+import Sickvac from '../../static/schedSickvac.PNG'
 import Pay from '../../static/schedPay.PNG'
 import Hol from '../../static/schedHol.PNG'
 
@@ -32,16 +33,15 @@ export const SideBar = ({ isSignedIn, onRouteChange, onNewSchedule, names, setPa
 
   return (
     <div classname="sidebarWrap">
-      <div className="upload">
-        <UploadFile isSignedIn={isSignedIn} onRouteChange={onRouteChange} onNewSchedule={onNewSchedule}/>
-      </div>
-      <ButtonGroup vertical>
-        <IndividualDownload names={names} />
-        <Button variant="secondary" onClick={() => setPage('links')}>Useful Links</Button>
-        <Button variant="secondary" onClick={() => setPage('nightlogs')}>Nightlog</Button>
-        <Button variant="secondary" onClick={() => setPage('submitnightlog')}>Submit Nightlog</Button>
-      </ButtonGroup>
       <div className="container">
+        <div className="item">
+          <ButtonGroup vertical>
+            <IndividualDownload names={names} />
+            <Button variant="secondary" onClick={() => setPage('links')}>Useful Links</Button>
+            <Button variant="secondary" onClick={() => setPage('nightlogs')}>Nightlog</Button>
+            <Button variant="secondary" onClick={() => setPage('submitnightlog')}>Submit Nightlog</Button>
+          </ButtonGroup>
+        </div>
         <div className="item">
           <Card>
             <Card.Body>
@@ -60,14 +60,18 @@ export const SideBar = ({ isSignedIn, onRouteChange, onNewSchedule, names, setPa
                 <ListGroup variant="flush">
                   <ListGroup.Item><img src={Today} alt="today" style={{width:"20px", height:"20px"}} /> Today</ListGroup.Item>
                   <ListGroup.Item><img src={Night} alt="night" style={{width:"20px", height:"20px"}} /> Night Shift</ListGroup.Item>
-                  <ListGroup.Item><img src={Day} alt="day" style={{width:"20px", height:"20px"}} />Day Shift</ListGroup.Item>
-                  <ListGroup.Item><img src={Leave} alt="leave" style={{width:"20px", height:"20px"}} />Leave</ListGroup.Item>
-                  <ListGroup.Item><img src={Pay} alt="pay" style={{width:"20px", height:"20px"}} />Pay Period</ListGroup.Item>
-                  <ListGroup.Item><img src={Hol} alt="holiday" style={{width:"20px", height:"20px"}} />Holiday</ListGroup.Item>
+                  <ListGroup.Item><img src={Day} alt="day" style={{width:"20px", height:"20px"}} /> Day Shift</ListGroup.Item>
+                  <ListGroup.Item><img src={Leave} alt="leave" style={{width:"20px", height:"20px"}} /> Leave</ListGroup.Item>
+                  <ListGroup.Item><img src={Sickvac} alt="leave" style={{width:"20px", height:"20px"}} /> Vacation/Sick</ListGroup.Item>
+                  <ListGroup.Item><img src={Pay} alt="pay" style={{width:"20px", height:"20px"}} /> Pay Period</ListGroup.Item>
+                  <ListGroup.Item><img src={Hol} alt="holiday" style={{width:"20px", height:"20px"}} /> Holiday</ListGroup.Item>
                 </ListGroup>
               </Card.Text>
             </Card.Body>
           </Card>
+        </div>
+        <div className="upload">
+          <UploadFile isSignedIn={isSignedIn} onRouteChange={onRouteChange} onNewSchedule={onNewSchedule}/>
         </div>
       </div>
     </div>

@@ -14,14 +14,6 @@ table td, #table th {
   padding: 5px;
 }
 
-/* table tr.MON, tr.WED, tr.FRI {
-  background-color: #FFFFFF;
-}
-
-table tr.TUE, tr.THU {
-  background-color: #C6D8EB;
-} */
-
 table tr {
   background-color: #FFFFFF;
 }
@@ -39,7 +31,7 @@ table tr.today {
   border-color: black;
 }
 
-table tr:hover {background-color: #5278A3;}
+table tr:hover {background-color: #688cb4;}
 table tr:hover {color: #FFFFFF;}
 
 table th, tfoot td {

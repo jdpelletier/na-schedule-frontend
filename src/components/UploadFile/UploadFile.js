@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
 export const UploadFile = ({ onRouteChange, isSignedIn, onNewSchedule }) => {
 
@@ -30,12 +31,14 @@ export const UploadFile = ({ onRouteChange, isSignedIn, onNewSchedule }) => {
   if(isSignedIn) {
   	return(
       <div>
-        <Form.Group controlId="formFile" className="mb-3">
-          <Form.Label>Update schedule:</Form.Label>
-          <Form.Control type="file" name="file" size="sm" onChange={changeHandler} />
-        </Form.Group>
-        <Button onClick={handleSubmission}>Submit</Button>
-        <Button variant="secondary" onClick={() => onRouteChange('signout')}>Sign Out</Button>
+        <Card>
+          <Form.Group controlId="formFile" className="mb-3">
+            <Form.Label>Update schedule:</Form.Label>
+            <Form.Control type="file" name="file" size="sm" onChange={changeHandler} />
+          </Form.Group>
+          <Button onClick={handleSubmission}>Submit</Button>
+          <Button variant="secondary" onClick={() => onRouteChange('signout')}>Sign Out</Button>
+        </Card>
       </div>
   	)
   }else{

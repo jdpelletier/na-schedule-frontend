@@ -5,3 +5,8 @@
     width: 100%;
   }
 }
+
+.react-datepicker,
+.react-datepicker__current-month {
+  font-weight: normal;
+}

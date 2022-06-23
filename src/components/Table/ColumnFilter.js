@@ -22,10 +22,11 @@ export const ColumnFilter = ({ column }) => {
   }
 
   if(searching){
-    output = <input size={inSize} value={value || ''} onChange={(e) => {
+    output = <input autofocus size={inSize} value={value || ''} onChange={(e) => {
               setValue(e.target.value)
               onChange(e.target.value)
             }}/>
+
   }else{
     output = <button onClick={() => setSearching(true)}>&#x1F50D;</button>
   }

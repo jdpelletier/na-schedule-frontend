@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col';
 import NavMenu from "../NavMenu/NavMenu"
 import './NightlogSubmission.css';
 
-const NightlogSubmission = ({setPage, setLogs}) => {
+const NightlogSubmission = ({setPage, logtoview, editNL, setEditNL}) => {
 
   const [name, setName] = useState("");
   const [topic, setTopic] = useState("");
@@ -26,13 +26,34 @@ const NightlogSubmission = ({setPage, setLogs}) => {
     fetch("http://localhost:5000/nightlogs")
       .then(response => response.json())
       .then(data => {
-        const last = data[data.length - 1]
-        setLogid(parseInt(last.LogID) + 1)
+        if(editNL===false){
+          const last = data[data.length - 1]
+          setLogid(parseInt(last.LogID) + 1)
+        }else{
+          setLogid(parseInt(logtoview.LogID))
+        }
       });
   }, [])
 
   const cancel = () => {
-    setPage("nightlogs")
+    if(editNL===true){
+      let opts = {
+        'LogID': logtoview.LogID,
+        'Date': logtoview.Date,
+        'Keyword': logtoview.Keyword,
+        'Topic': logtoview.Topic,
+        'Name': logtoview.Name,
+        'Details': logtoview.Details
+      }
+      fetch('http://localhost:5000/editnightlogsubmition', {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(opts)
+      }).then(response => response.json())
+        .then(setPage("nightlogs"))
+    }else{
+      setPage("nightlogs")
+    }
   }
 
   const submit = (e) => {
@@ -52,19 +73,21 @@ const NightlogSubmission = ({setPage, setLogs}) => {
       }
     }
     if (missing.length === 0){
-      fetch('http://localhost:5000/nightlogsubmition', {
-        method: 'post',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(opts)
-      }).then(response => response.json())
-        .then(data => {
-          fetch("http://localhost:5000/nightlogs")
-            .then(res => res.json())
-            .then(dat => {
-              setLogs([...dat])
-              setPage("nightlogs")
-            })
-          })
+      if (editNL===true){
+        fetch('http://localhost:5000/editnightlogsubmition', {
+          method: 'post',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(opts)
+        }).then(response => response.json())
+          .then(setPage("nightlogs"))
+        }else{
+          fetch('http://localhost:5000/nightlogsubmition', {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(opts)
+          }).then(response => response.json())
+            .then(setPage("nightlogs"))
+        }
       }else{
         setMissingItems(missing)
         setPopupOpen(true)
@@ -79,19 +102,19 @@ const NightlogSubmission = ({setPage, setLogs}) => {
           <Row className="mb-3">
             <Form.Group as={Col} className="mb-3" controlId="topic">
               <Form.Label>Topic:</Form.Label>
-              <Form.Control type="text" onChange={(e) => setTopic(e.target.value)} />
+              <Form.Control type="text" value={logtoview.Topic} onChange={(e) => setTopic(e.target.value)} />
             </Form.Group>
 
             <Form.Group as={Col} className="mb-3" controlId="name">
               <Form.Label>Name</Form.Label>
-              <Form.Control type="text" onChange={(e) => setName(e.target.value)} />
+              <Form.Control type="text" value={logtoview.Name} onChange={(e) => setName(e.target.value)} />
             </Form.Group>
           </Row>
 
           <Row className="mb-3">
             <Form.Group as={Col} className="mb-3" controlId="date">
               <Form.Label>Date:</Form.Label>
-              <Form.Control type="Date" defaultValue={todaystr} onChange={(e) => setDate(e.target.value)} />
+              <Form.Control type="Date" defaultValue={logtoview.Date !== "" ? logtoview.Date : todaystr} onChange={(e) => setDate(e.target.value)} />
             </Form.Group>
             <Form.Group as={Col} className="mb-3" controlId="keyword">
               <Form.Label>Select a Keyword:</Form.Label>
@@ -107,7 +130,7 @@ const NightlogSubmission = ({setPage, setLogs}) => {
 
           <Form.Group className="mb-3" controlId="date">
             <Form.Label>Details:</Form.Label>
-            <Form.Control as="textarea" rows="10" cols="100" onChange={(e) => setDetails(e.target.value)} />
+            <Form.Control as="textarea" rows="10" cols="100" value={logtoview.Details} onChange={(e) => setDetails(e.target.value)} />
           </Form.Group>
           <Button variant="secondary" onClick={submit}>Submit</Button>
           <Button variant="secondary" onClick={cancel}>Cancel</Button>
