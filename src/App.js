@@ -11,6 +11,8 @@ import NavMenu from "./components/NavMenu/NavMenu";
 import "./App.css"
 
 function App () {
+
+  const ip = "localhost"
   const [schedule, setSchedule] = useState([])
   const [columns, setColumns] = useState([])
   const [holidays, setHolidays] = useState([])
@@ -88,7 +90,7 @@ function App () {
   }, [])
 
   useEffect(() => {
-    fetch("http://192.168.1.95:5000/")
+    fetch(`http://${ip}:5000/`)
       .then(response => response.json())
       .then(data => {
         setSchedule([...data])
@@ -150,7 +152,7 @@ function App () {
               </div>
               <div className="sidebar-item">
                 <SideBar isSignedIn={isSignedIn} onRouteChange={onRouteChange} onNewSchedule={onNewSchedule}
-                         names={names} setPage={setPage} staff={staff}/>
+                         names={names} setPage={setPage} staff={staff} ip={ip}/>
               </div>
             </div>
         </div>
@@ -171,11 +173,11 @@ function App () {
     )
   }else if(page === "nightlogs"){
     return(
-      <Nightlog setPage={setPage} logtoview={logtoview} setLogtoview={setLogtoview} setEditNL={setEditNL}/>
+      <Nightlog setPage={setPage} logtoview={logtoview} setLogtoview={setLogtoview} setEditNL={setEditNL} ip={ip}/>
     )
   }else if(page === "submitnightlog"){
     return(
-      <NightlogSubmission setPage={setPage} logtoview={logtoview} editNL={editNL} setEditNL={setEditNL}/>
+      <NightlogSubmission setPage={setPage} logtoview={logtoview} editNL={editNL} setEditNL={setEditNL} ip={ip}/>
     )
   }
 }

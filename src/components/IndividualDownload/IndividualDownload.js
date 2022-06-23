@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-export const IndividualDownload = ({names}) => {
+export const IndividualDownload = ({names, ip}) => {
 
   const [popupOpen, setPopupOpen] = useState(false);
   const openModal = () => setPopupOpen(true);
@@ -10,7 +10,7 @@ export const IndividualDownload = ({names}) => {
 
   const individualDownload = (name) => {
     fetch(
-      'http://localhost:5000/get-employee-schedule',
+      `http://${ip}:5000/get-employee-schedule`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

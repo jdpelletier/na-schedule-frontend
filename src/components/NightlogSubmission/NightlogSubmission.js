@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col';
 import NavMenu from "../NavMenu/NavMenu"
 import './NightlogSubmission.css';
 
-const NightlogSubmission = ({setPage, logtoview, editNL, setEditNL}) => {
+const NightlogSubmission = ({setPage, logtoview, editNL, setEditNL, ip}) => {
 
   const [name, setName] = useState("");
   const [topic, setTopic] = useState("");
@@ -23,7 +23,7 @@ const NightlogSubmission = ({setPage, logtoview, editNL, setEditNL}) => {
   const [missingitems, setMissingItems] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/nightlogs")
+    fetch(`http://${ip}:5000/nightlogs`)
       .then(response => response.json())
       .then(data => {
         if(editNL===false){
@@ -33,7 +33,7 @@ const NightlogSubmission = ({setPage, logtoview, editNL, setEditNL}) => {
           setLogid(parseInt(logtoview.LogID))
         }
       });
-  }, [])
+  }, [editNL, ip, logtoview.LogID])
 
   const cancel = () => {
     if(editNL===true){
@@ -45,12 +45,15 @@ const NightlogSubmission = ({setPage, logtoview, editNL, setEditNL}) => {
         'Name': logtoview.Name,
         'Details': logtoview.Details
       }
-      fetch('http://localhost:5000/editnightlogsubmition', {
+      fetch(`http://${ip}:5000/editnightlogsubmition`, {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(opts)
       }).then(response => response.json())
-        .then(setPage("nightlogs"))
+        .then(()=>{
+          setEditNL(false)
+          setPage("nightlogs")})
+
     }else{
       setPage("nightlogs")
     }
@@ -74,19 +77,21 @@ const NightlogSubmission = ({setPage, logtoview, editNL, setEditNL}) => {
     }
     if (missing.length === 0){
       if (editNL===true){
-        fetch('http://localhost:5000/editnightlogsubmition', {
+        fetch(`http://${ip}:5000/editnightlogsubmition`, {
           method: 'post',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(opts)
         }).then(response => response.json())
           .then(setPage("nightlogs"))
         }else{
-          fetch('http://localhost:5000/nightlogsubmition', {
+          fetch(`http://${ip}:5000/nightlogsubmition`, {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(opts)
           }).then(response => response.json())
-            .then(setPage("nightlogs"))
+            .then(()=>{
+              setEditNL(false)
+              setPage("nightlogs")})
         }
       }else{
         setMissingItems(missing)
@@ -114,7 +119,7 @@ const NightlogSubmission = ({setPage, logtoview, editNL, setEditNL}) => {
           <Row className="mb-3">
             <Form.Group as={Col} className="mb-3" controlId="date">
               <Form.Label>Date:</Form.Label>
-              <Form.Control type="Date" defaultValue={logtoview.Date !== "" ? logtoview.Date : todaystr} onChange={(e) => setDate(e.target.value)} />
+              <Form.Control type="Date" defaultValue={todaystr} onChange={(e) => setDate(e.target.value)} />
             </Form.Group>
             <Form.Group as={Col} className="mb-3" controlId="keyword">
               <Form.Label>Select a Keyword:</Form.Label>

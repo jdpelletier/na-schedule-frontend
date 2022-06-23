@@ -17,7 +17,7 @@ import Sickvac from '../../static/schedSickvac.PNG'
 import Pay from '../../static/schedPay.PNG'
 import Hol from '../../static/schedHol.PNG'
 
-export const SideBar = ({ isSignedIn, onRouteChange, onNewSchedule, names, setPage, staff }) => {
+export const SideBar = ({ isSignedIn, onRouteChange, onNewSchedule, names, setPage, staff, ip }) => {
 
 
   // const [staffTest, setStaffTest] = useState([])
@@ -36,7 +36,7 @@ export const SideBar = ({ isSignedIn, onRouteChange, onNewSchedule, names, setPa
       <div className="container">
         <div className="item">
           <ButtonGroup vertical>
-            <IndividualDownload names={names} />
+            <IndividualDownload names={names} ip={ip}/>
             <Button variant="secondary" onClick={() => setPage('links')}>Useful Links</Button>
             <Button variant="secondary" onClick={() => setPage('nightlogs')}>Nightlog</Button>
             <Button variant="secondary" onClick={() => setPage('submitnightlog')}>Submit Nightlog</Button>
@@ -71,7 +71,7 @@ export const SideBar = ({ isSignedIn, onRouteChange, onNewSchedule, names, setPa
           </Card>
         </div>
         <div className="upload">
-          <UploadFile isSignedIn={isSignedIn} onRouteChange={onRouteChange} onNewSchedule={onNewSchedule}/>
+          <UploadFile isSignedIn={isSignedIn} onRouteChange={onRouteChange} onNewSchedule={onNewSchedule} ip={ip}/>
         </div>
       </div>
     </div>

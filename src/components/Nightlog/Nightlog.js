@@ -5,7 +5,7 @@ import { LogTable } from "./LogTable"
 import './Nightlog.css'
 import NavMenu from "../NavMenu/NavMenu"
 
-export const Nightlog = ({setPage, logtoview, setLogtoview, setEditNL}) => {
+export const Nightlog = ({setPage, logtoview, setLogtoview, setEditNL, ip}) => {
 
   const [logs, setLogs] = useState([]);
   const [columns, setColumns] = useState([]);
@@ -32,19 +32,19 @@ export const Nightlog = ({setPage, logtoview, setLogtoview, setEditNL}) => {
   }
 
   useEffect(() => {
-    fetch("http://192.168.1.95:5000/nightlogs")
+    fetch(`http://${ip}:5000/nightlogs`)
       .then(response => response.json())
       .then(data => {
         setLogs([...data])
         setColumns([...cols(data)])
       });
-  }, [])
+  }, [ip])
 
   const openLog = (lid) => {
     let opts = {
       'LogID': lid,
     }
-    fetch('http://192.168.1.95:5000/viewnightlog', {
+    fetch(`http://${ip}:5000/viewnightlog`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(opts)
@@ -56,6 +56,8 @@ export const Nightlog = ({setPage, logtoview, setLogtoview, setEditNL}) => {
   }
 
   const back = () => {
+    setLogtoview({})
+    setEditNL(false)
     setViewlog(false)
   }
 
@@ -63,7 +65,7 @@ export const Nightlog = ({setPage, logtoview, setLogtoview, setEditNL}) => {
     let opts = {
       'LogID': logtoview.LogID,
     }
-    fetch('http://192.168.1.95:5000/deletenightlog', {
+    fetch(`http://${ip}:5000/deletenightlog`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(opts)
@@ -82,7 +84,7 @@ export const Nightlog = ({setPage, logtoview, setLogtoview, setEditNL}) => {
   if (viewlog === true){
     return(
       <div className="nlog">
-        <NavMenu page={"nightlogs"} setPage={setPage} setViewlog={setViewlog}/>
+        <NavMenu page={"nightlogs"} setPage={setPage} setViewlog={setViewlog} setLogtoview={setLogtoview}/>
         <div className="nlogView">
           <Card className="bg-black-50 text-white nlogView" >
             <Card.Body>

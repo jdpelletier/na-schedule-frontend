@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
-export const UploadFile = ({ onRouteChange, isSignedIn, onNewSchedule }) => {
+export const UploadFile = ({ onRouteChange, isSignedIn, onNewSchedule, ip }) => {
 
   const [selectedFile, setSelectedFile] = useState();
 
@@ -19,7 +19,7 @@ export const UploadFile = ({ onRouteChange, isSignedIn, onNewSchedule }) => {
   	formData.append('file', selectedFile);
 
   	fetch(
-  		'http://localhost:5000/update_schedule',
+  		`http://${ip}:5000/update_schedule`,
   		{
   			method: 'POST',
         body: formData
