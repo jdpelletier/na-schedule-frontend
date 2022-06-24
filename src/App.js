@@ -153,7 +153,7 @@ function App () {
               </div>
               <div className="sidebar-item">
                 <SideBar isSignedIn={isSignedIn} onRouteChange={onRouteChange} onNewSchedule={onNewSchedule}
-                         names={names} setPage={setPage} staff={staff} ip={ip}/>
+                         names={names} setPage={setPage} staff={staff} ip={ip} port={port}/>
               </div>
             </div>
         </div>
@@ -174,11 +174,11 @@ function App () {
     )
   }else if(page === "nightlogs"){
     return(
-      <Nightlog setPage={setPage} logtoview={logtoview} setLogtoview={setLogtoview} setEditNL={setEditNL} ip={ip}/>
+      <Nightlog setPage={setPage} logtoview={logtoview} setLogtoview={setLogtoview} setEditNL={setEditNL} ip={ip} port={port}/>
     )
   }else if(page === "submitnightlog"){
     return(
-      <NightlogSubmission setPage={setPage} logtoview={logtoview} editNL={editNL} setEditNL={setEditNL} ip={ip}/>
+      <NightlogSubmission setPage={setPage} logtoview={logtoview} editNL={editNL} setEditNL={setEditNL} ip={ip} port={port}/>
     )
   }
 }

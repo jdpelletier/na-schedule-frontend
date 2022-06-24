@@ -36,7 +36,7 @@ export const SideBar = ({ isSignedIn, onRouteChange, onNewSchedule, names, setPa
       <div className="container">
         <div className="item">
           <ButtonGroup vertical>
-            <IndividualDownload names={names} ip={ip}/>
+            <IndividualDownload names={names} ip={ip} port={port}/>
             <Button variant="secondary" onClick={() => setPage('links')}>Useful Links</Button>
             <Button variant="secondary" onClick={() => setPage('nightlogs')}>Nightlog</Button>
             <Button variant="secondary" onClick={() => setPage('submitnightlog')}>Submit Nightlog</Button>
@@ -71,7 +71,7 @@ export const SideBar = ({ isSignedIn, onRouteChange, onNewSchedule, names, setPa
           </Card>
         </div>
         <div className="upload">
-          <UploadFile isSignedIn={isSignedIn} onRouteChange={onRouteChange} onNewSchedule={onNewSchedule} ip={ip}/>
+          <UploadFile isSignedIn={isSignedIn} onRouteChange={onRouteChange} onNewSchedule={onNewSchedule} ip={ip} port={port}/>
         </div>
       </div>
     </div>
