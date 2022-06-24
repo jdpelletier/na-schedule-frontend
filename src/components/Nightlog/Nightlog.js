@@ -32,7 +32,7 @@ export const Nightlog = ({setPage, logtoview, setLogtoview, setEditNL, ip}) => {
   }
 
   useEffect(() => {
-    fetch(`http://${ip}:5000/nightlogs`)
+    fetch(`http://${ip}:${port}/nightlogs`)
       .then(response => response.json())
       .then(data => {
         setLogs([...data])
@@ -44,7 +44,7 @@ export const Nightlog = ({setPage, logtoview, setLogtoview, setEditNL, ip}) => {
     let opts = {
       'LogID': lid,
     }
-    fetch(`http://${ip}:5000/viewnightlog`, {
+    fetch(`http://${ip}:${port}/viewnightlog`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(opts)
@@ -65,7 +65,7 @@ export const Nightlog = ({setPage, logtoview, setLogtoview, setEditNL, ip}) => {
     let opts = {
       'LogID': logtoview.LogID,
     }
-    fetch(`http://${ip}:5000/deletenightlog`, {
+    fetch(`http://${ip}:${port}/deletenightlog`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(opts)

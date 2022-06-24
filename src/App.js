@@ -13,6 +13,7 @@ import "./App.css"
 function App () {
 
   const ip = "localhost"
+  const port = "53872"
   const [schedule, setSchedule] = useState([])
   const [columns, setColumns] = useState([])
   const [holidays, setHolidays] = useState([])
@@ -90,7 +91,7 @@ function App () {
   }, [])
 
   useEffect(() => {
-    fetch(`http://${ip}:5000/`)
+    fetch(`http://${ip}:${port}/`)
       .then(response => response.json())
       .then(data => {
         setSchedule([...data])
