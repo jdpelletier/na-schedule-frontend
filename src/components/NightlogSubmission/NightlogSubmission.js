@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col';
 import NavMenu from "../NavMenu/NavMenu"
 import './NightlogSubmission.css';
 
-const NightlogSubmission = ({setPage, logtoview, editNL, setEditNL, ip}) => {
+const NightlogSubmission = ({setPage, logtoview, editNL, setEditNL, ip, port}) => {
 
   const [name, setName] = useState("");
   const [topic, setTopic] = useState("");

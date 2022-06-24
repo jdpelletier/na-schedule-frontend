@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-export const IndividualDownload = ({names, ip}) => {
+export const IndividualDownload = ({names, ip, port}) => {
 
   const [popupOpen, setPopupOpen] = useState(false);
   const openModal = () => setPopupOpen(true);

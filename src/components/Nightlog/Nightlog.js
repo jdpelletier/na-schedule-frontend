@@ -5,7 +5,7 @@ import { LogTable } from "./LogTable"
 import './Nightlog.css'
 import NavMenu from "../NavMenu/NavMenu"
 
-export const Nightlog = ({setPage, logtoview, setLogtoview, setEditNL, ip}) => {
+export const Nightlog = ({setPage, logtoview, setLogtoview, setEditNL, ip, port}) => {
 
   const [logs, setLogs] = useState([]);
   const [columns, setColumns] = useState([]);

@@ -17,7 +17,7 @@ import Sickvac from '../../static/schedSickvac.PNG'
 import Pay from '../../static/schedPay.PNG'
 import Hol from '../../static/schedHol.PNG'
 
-export const SideBar = ({ isSignedIn, onRouteChange, onNewSchedule, names, setPage, staff, ip }) => {
+export const SideBar = ({ isSignedIn, onRouteChange, onNewSchedule, names, setPage, staff, ip, port}) => {
 
 
   // const [staffTest, setStaffTest] = useState([])

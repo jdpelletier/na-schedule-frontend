@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
-export const UploadFile = ({ onRouteChange, isSignedIn, onNewSchedule, ip }) => {
+export const UploadFile = ({ onRouteChange, isSignedIn, onNewSchedule, ip, port }) => {
 
   const [selectedFile, setSelectedFile] = useState();
 
