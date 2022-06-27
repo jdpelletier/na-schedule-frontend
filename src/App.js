@@ -91,7 +91,7 @@ function App () {
   }, [])
 
   useEffect(() => {
-    fetch(`http://${ip}:${port}/`)
+    fetch(`https://${ip}:${port}/`)
       .then(response => response.json())
       .then(data => {
         setSchedule([...data])
