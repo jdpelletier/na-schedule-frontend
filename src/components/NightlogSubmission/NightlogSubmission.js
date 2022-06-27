@@ -23,7 +23,7 @@ const NightlogSubmission = ({setPage, logtoview, editNL, setEditNL, ip, port}) =
   const [missingitems, setMissingItems] = useState([]);
 
   useEffect(() => {
-    fetch(`http://${ip}:${port}/nightlogs`)
+    fetch(`https://${ip}:${port}/nightlogs`)
       .then(response => response.json())
       .then(data => {
         if(editNL===false){
@@ -45,7 +45,7 @@ const NightlogSubmission = ({setPage, logtoview, editNL, setEditNL, ip, port}) =
         'Name': logtoview.Name,
         'Details': logtoview.Details
       }
-      fetch(`http://${ip}:${port}/editnightlogsubmition`, {
+      fetch(`https://${ip}:${port}/editnightlogsubmition`, {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(opts)
@@ -77,14 +77,14 @@ const NightlogSubmission = ({setPage, logtoview, editNL, setEditNL, ip, port}) =
     }
     if (missing.length === 0){
       if (editNL===true){
-        fetch(`http://${ip}:${port}/editnightlogsubmition`, {
+        fetch(`https://${ip}:${port}/editnightlogsubmition`, {
           method: 'post',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(opts)
         }).then(response => response.json())
           .then(setPage("nightlogs"))
         }else{
-          fetch(`http://${ip}:${port}/nightlogsubmition`, {
+          fetch(`https://${ip}:${port}/nightlogsubmition`, {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(opts)
