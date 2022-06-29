@@ -38,7 +38,7 @@ export const Nightlog = ({setPage, logtoview, setLogtoview, setEditNL, ip, port}
         setLogs([...data])
         setColumns([...cols(data)])
       });
-  }, [ip])
+  }, [ip, port])
 
   const openLog = (lid) => {
     let opts = {

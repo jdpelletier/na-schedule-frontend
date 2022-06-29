@@ -33,7 +33,7 @@ const NightlogSubmission = ({setPage, logtoview, editNL, setEditNL, ip, port}) =
           setLogid(parseInt(logtoview.LogID))
         }
       });
-  }, [editNL, ip, logtoview.LogID])
+  }, [editNL, ip, port, logtoview.LogID])
 
   const cancel = () => {
     if(editNL===true){
