@@ -12,7 +12,7 @@ import "./App.css"
 
 function App () {
 
-  const ip = "192.168.122.1"
+  const ip = "vm-www3build"
   const port = "53872"
   const [schedule, setSchedule] = useState([])
   const [columns, setColumns] = useState([])
