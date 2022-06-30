@@ -6,7 +6,7 @@ import NavMenu from "../NavMenu/NavMenu"
 import Fills from '../../static/Fills.pdf'
 import NaHoursandCodes from '../../static/NightAttendantHoursandCodes.pdf'
 
-export const Links = ({setPage}) => {
+export const Links = ({setPage, setEditNL}) => {
 
   const openLink = (link) => {
     window.open(link, "_blank")
@@ -14,7 +14,7 @@ export const Links = ({setPage}) => {
 
   return(
     <div>
-      <NavMenu page={"links"} setPage={setPage} />
+      <NavMenu page={"links"} setPage={setPage} setEditNL={setEditNL} />
       <h1>Useful Links</h1>
       <Accordion>
         <Accordion.Item eventKey="0">

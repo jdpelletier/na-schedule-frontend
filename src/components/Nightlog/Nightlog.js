@@ -32,7 +32,7 @@ export const Nightlog = ({setPage, logtoview, setLogtoview, setEditNL, ip, port}
   }
 
   useEffect(() => {
-    fetch(`https://${ip}:${port}/nightlogs`)
+    fetch(`${ip}:${port}/nightlogs`)
       .then(response => response.json())
       .then(data => {
         setLogs([...data])
@@ -44,7 +44,7 @@ export const Nightlog = ({setPage, logtoview, setLogtoview, setEditNL, ip, port}
     let opts = {
       'LogID': lid,
     }
-    fetch(`https://${ip}:${port}/viewnightlog`, {
+    fetch(`${ip}:${port}/viewnightlog`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(opts)
@@ -65,7 +65,7 @@ export const Nightlog = ({setPage, logtoview, setLogtoview, setEditNL, ip, port}
     let opts = {
       'LogID': logtoview.LogID,
     }
-    fetch(`https://${ip}:${port}/deletenightlog`, {
+    fetch(`${ip}:${port}/deletenightlog`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(opts)
@@ -84,7 +84,7 @@ export const Nightlog = ({setPage, logtoview, setLogtoview, setEditNL, ip, port}
   if (viewlog === true){
     return(
       <div className="nlog">
-        <NavMenu page={"nightlogs"} setPage={setPage} setViewlog={setViewlog} setLogtoview={setLogtoview}/>
+        <NavMenu page={"nightlogs"} setPage={setPage} setViewlog={setViewlog} setLogtoview={setLogtoview} setEditNL={setEditNL} />
         <div className="nlogView">
           <Card className="bg-black-50 text-white nlogView" >
             <Card.Body>
@@ -107,7 +107,7 @@ export const Nightlog = ({setPage, logtoview, setLogtoview, setEditNL, ip, port}
   }else{
     return(
       <div>
-        <NavMenu setPage={setPage} />
+        <NavMenu setPage={setPage} setEditNL={setEditNL} />
         <LogTable dat={logs} cols={columns} openLog={openLog}
           getCellProps={cellInfo => ({
             style: {

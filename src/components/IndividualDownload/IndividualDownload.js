@@ -10,7 +10,7 @@ export const IndividualDownload = ({names, ip, port}) => {
 
   const individualDownload = (name) => {
     fetch(
-      `https://${ip}:${port}/get-employee-schedule`,
+      `${ip}:${port}/get-employee-schedule`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

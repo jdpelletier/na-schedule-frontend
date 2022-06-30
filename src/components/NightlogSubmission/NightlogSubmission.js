@@ -16,21 +16,29 @@ const NightlogSubmission = ({setPage, logtoview, editNL, setEditNL, ip, port}) =
   const [keyword, setKeyword] = useState("");
   const today = new Date();
   const todaystr = today.toISOString().substr(0,10)
-  const [date, setDate] = useState(todaystr);
-  const [logid, setLogid] = useState("0");
+  const [date, setDate] = useState();
+  const [logid, setLogid] = useState(0);
   const [popupOpen, setPopupOpen] = useState(false);
   const closeModal = () => setPopupOpen(false);
   const [missingitems, setMissingItems] = useState([]);
 
   useEffect(() => {
-    fetch(`https://${ip}:${port}/nightlogs`)
+    fetch(`${ip}:${port}/nightlogs`)
       .then(response => response.json())
       .then(data => {
         if(editNL===false){
-          const last = data[data.length - 1]
-          setLogid(parseInt(last.LogID) + 1)
+          setDate(todaystr)
+          if(data.length>0){
+            const last = data[data.length - 1]
+            setLogid(parseInt(last.LogID) + 1)
+          }
         }else{
           setLogid(parseInt(logtoview.LogID))
+          setName(logtoview.Name)
+          setKeyword(logtoview.Keyword)
+          setTopic(logtoview.Topic)
+          setDate(logtoview.Date)
+          setDetails(logtoview.Details)
         }
       });
   }, [editNL, ip, port, logtoview.LogID])
@@ -45,7 +53,7 @@ const NightlogSubmission = ({setPage, logtoview, editNL, setEditNL, ip, port}) =
         'Name': logtoview.Name,
         'Details': logtoview.Details
       }
-      fetch(`https://${ip}:${port}/editnightlogsubmition`, {
+      fetch(`${ip}:${port}/editnightlogsubmition`, {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(opts)
@@ -77,14 +85,14 @@ const NightlogSubmission = ({setPage, logtoview, editNL, setEditNL, ip, port}) =
     }
     if (missing.length === 0){
       if (editNL===true){
-        fetch(`https://${ip}:${port}/editnightlogsubmition`, {
+        fetch(`${ip}:${port}/editnightlogsubmition`, {
           method: 'post',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(opts)
         }).then(response => response.json())
           .then(setPage("nightlogs"))
         }else{
-          fetch(`https://${ip}:${port}/nightlogsubmition`, {
+          fetch(`${ip}:${port}/nightlogsubmition`, {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(opts)
@@ -101,29 +109,29 @@ const NightlogSubmission = ({setPage, logtoview, editNL, setEditNL, ip, port}) =
 
   return(
     <>
-      <NavMenu page={"submitnightlog"} setPage={setPage} />
+      <NavMenu page={"submitnightlog"} setPage={setPage} setEditNL={setEditNL} />
       <div className="formwrapper">
         <Form>
           <Row className="mb-3">
             <Form.Group as={Col} className="mb-3" controlId="topic">
               <Form.Label>Topic:</Form.Label>
-              <Form.Control type="text" value={logtoview.Topic} onChange={(e) => setTopic(e.target.value)} />
+              <Form.Control type="text" value={topic} onChange={(e) => setTopic(e.target.value)} />
             </Form.Group>
 
             <Form.Group as={Col} className="mb-3" controlId="name">
               <Form.Label>Name</Form.Label>
-              <Form.Control type="text" value={logtoview.Name} onChange={(e) => setName(e.target.value)} />
+              <Form.Control type="text" value={name} onChange={(e) => setName(e.target.value)} />
             </Form.Group>
           </Row>
 
           <Row className="mb-3">
             <Form.Group as={Col} className="mb-3" controlId="date">
               <Form.Label>Date:</Form.Label>
-              <Form.Control type="Date" defaultValue={todaystr} onChange={(e) => setDate(e.target.value)} />
+              <Form.Control type="Date" defaultValue={date} onChange={(e) => setDate(e.target.value)} />
             </Form.Group>
             <Form.Group as={Col} className="mb-3" controlId="keyword">
               <Form.Label>Select a Keyword:</Form.Label>
-              <Form.Select name="keywords" id="keywords" onChange={(e) => setKeyword(e.target.value)}>
+              <Form.Select name="keywords" id="keywords" value={keyword} onChange={(e) => setKeyword(e.target.value)}>
                 <option value="" selected disabled hidden></option>
                 <option value="Telescope">Telescope</option>
                 <option value="Instrument">Instrument</option>
@@ -135,7 +143,7 @@ const NightlogSubmission = ({setPage, logtoview, editNL, setEditNL, ip, port}) =
 
           <Form.Group className="mb-3" controlId="date">
             <Form.Label>Details:</Form.Label>
-            <Form.Control as="textarea" rows="10" cols="100" value={logtoview.Details} onChange={(e) => setDetails(e.target.value)} />
+            <Form.Control as="textarea" rows="10" cols="100" value={details} onChange={(e) => setDetails(e.target.value)} />
           </Form.Group>
           <Button variant="secondary" onClick={submit}>Submit</Button>
           <Button variant="secondary" onClick={cancel}>Cancel</Button>

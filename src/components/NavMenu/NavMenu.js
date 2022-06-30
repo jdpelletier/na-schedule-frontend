@@ -5,10 +5,22 @@ import Button from 'react-bootstrap/Button';
 
 import './NavMenu.css'
 
-const NavMenu = ({page, setPage, setViewlog, setLogtoview}) => {
+const NavMenu = ({page, setPage, setViewlog, setLogtoview, setEditNL}) => {
+
+  const goHome = () => {
+    setEditNL(false)
+    setPage('home')
+  }
+
+  const goLinks = () => {
+    setEditNL(false)
+    setPage('links')
+  }
+
   const goNightlogs = () => {
+    setEditNL(false)
     if(page==="nightlogs"){
-      setViewlog(false)
+      setEditNL(false)
       setLogtoview({})
     }else{
       setPage("nightlogs")
@@ -28,8 +40,8 @@ const NavMenu = ({page, setPage, setViewlog, setLogtoview}) => {
           <Navbar.Toggle aria-controls='resonsive-navbar-nav'/>
           <Navbar.Collapse id="resonsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link as={Button} className="navbutton f5 b--black bg-light-silver hover-near-black" onClick={() => setPage('home')}>Home</Nav.Link>
-              <Nav.Link as={Button} className="navbutton f5 b--black bg-light-silver" onClick={() => setPage('links')}>Useful Links</Nav.Link>
+              <Nav.Link as={Button} className="navbutton f5 b--black bg-light-silver hover-near-black" onClick={goHome}>Home</Nav.Link>
+              <Nav.Link as={Button} className="navbutton f5 b--black bg-light-silver" onClick={goLinks}>Useful Links</Nav.Link>
               <Nav.Link as={Button} className="navbutton f5 b--black bg-light-silver" onClick={goNightlogs}>Nightlogs</Nav.Link>
               <Nav.Link as={Button} className="navbutton f5 b--black bg-light-silver" onClick={goSubmit}>Submit New Nightlog</Nav.Link>
             </Nav>

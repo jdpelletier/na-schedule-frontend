@@ -10,7 +10,7 @@ export const ColumnFilter = ({ column }) => {
     setFilter(value || undefined)
   }, 300)
 
-  const input = column.Header.length - 1
+  // const input = column.Header.length - 1
 
   return (
     <span>

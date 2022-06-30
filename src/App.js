@@ -12,7 +12,7 @@ import "./App.css"
 
 function App () {
 
-  const ip = "vm-www3build"
+  const ip = "https://vm-www3build"
   const port = "53872"
   const [schedule, setSchedule] = useState([])
   const [columns, setColumns] = useState([])
@@ -91,7 +91,7 @@ function App () {
   }, [])
 
   useEffect(() => {
-    fetch(`https://${ip}:${port}/`)
+    fetch(`${ip}:${port}/`)
       .then(response => response.json())
       .then(data => {
         setSchedule([...data])
@@ -161,7 +161,7 @@ function App () {
     }else{
       return (
         <div>
-          <NavMenu page={"home"} setPage={setPage} />
+          <NavMenu page={"home"} setPage={setPage} setEditNL={setEditNL} />
           <div className="tablewrapMobile">
             {table}
           </div>
@@ -170,7 +170,7 @@ function App () {
     }
   }else if(page === "links"){
     return(
-      <Links setPage={setPage} />
+      <Links setPage={setPage} setEditNL={setEditNL} />
     )
   }else if(page === "nightlogs"){
     return(
