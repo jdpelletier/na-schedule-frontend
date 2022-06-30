@@ -90,7 +90,9 @@ const NightlogSubmission = ({setPage, logtoview, editNL, setEditNL, ip, port}) =
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(opts)
         }).then(response => response.json())
-          .then(setPage("nightlogs"))
+          .then(()=>{
+            setEditNL(false)
+            setPage("nightlogs")})
         }else{
           fetch(`${ip}:${port}/nightlogsubmition`, {
             method: 'post',
