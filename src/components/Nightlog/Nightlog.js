@@ -70,9 +70,14 @@ export const Nightlog = ({setPage, logtoview, setLogtoview, setEditNL, ip, port}
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(opts)
     }).then(response => response.json())
-      .then(setViewlog(false))
-      // window.location.reload(false)
-      setPage("nightlogs")
+      .then(
+        fetch(`${ip}:${port}/nightlogs`)
+          .then(response => response.json())
+          .then(data => {
+            setLogs([...data])
+            setColumns([...cols(data)])
+            setViewlog(false))
+      }))
     }
 
   const edit = () => {
