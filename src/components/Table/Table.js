@@ -50,7 +50,7 @@ export const Table = ({dat, cols, dateRange, setDateRange, holidays, today, getC
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map( (column) => (
-                <th {...column.getHeaderProps()} className={column.Header}><div className="checkmark" style={{"appearance": "initial";}}><input type='checkbox' {...column.getToggleHiddenProps()} /></div><br></br>{column.render('Header')}
+                <th {...column.getHeaderProps()} className={column.Header}><div className="checkmark" style={{"appearance": "initial"}}><input type='checkbox' {...column.getToggleHiddenProps()} /></div><br></br>{column.render('Header')}
                   {column.Header === "Date" ? column.canFilter=false : null}
                   <div>{column.canFilter ? column.render('Filter') : <DateSelector dateRange={dateRange} setDateRange={setDateRange} />}</div>
                 </th>))}
