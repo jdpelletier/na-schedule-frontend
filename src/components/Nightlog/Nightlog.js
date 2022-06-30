@@ -71,7 +71,7 @@ export const Nightlog = ({setPage, logtoview, setLogtoview, setEditNL, ip, port}
       body: JSON.stringify(opts)
     }).then(response => response.json())
       .then(setViewlog(false))
-      window.location.reload(false)
+      // window.location.reload(false)
       setPage("nightlogs")
     }
 
