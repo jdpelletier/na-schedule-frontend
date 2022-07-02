@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { LogTable } from "./LogTable"
@@ -10,6 +11,8 @@ export const Nightlog = ({setPage, logtoview, setLogtoview, setEditNL, ip, port}
   const [logs, setLogs] = useState([]);
   const [columns, setColumns] = useState([]);
   const [viewlog, setViewlog] = useState(false);
+  const [popupOpen, setPopupOpen] = useState(false);
+  const closeModal = () => setPopupOpen(false);
 
 
   const cols = (nightlog) => {
@@ -73,6 +76,7 @@ export const Nightlog = ({setPage, logtoview, setLogtoview, setEditNL, ip, port}
       .then(data => {
         setLogs([...data])
         setColumns([...cols(data)])
+        closeModal()
         setViewlog(false)
       })
     }
@@ -91,7 +95,7 @@ export const Nightlog = ({setPage, logtoview, setLogtoview, setEditNL, ip, port}
           <Card className="bg-black-50 text-white nlogView" >
             <Card.Body>
               <Button variant="secondary" onClick={back}>Back</Button>
-              <Button variant="secondary" onClick={del}>Delete</Button>
+              <Button variant="secondary" onClick={() => setPopupOpen(true)}>Delete</Button>
               <Button variant="secondary" onClick={edit}>Edit</Button>
               <Card.Title className="f3" style={{ height: '2rem' }}>{logtoview.Topic}</Card.Title>
               <Card.Subtitle className="mb-2">
@@ -104,6 +108,17 @@ export const Nightlog = ({setPage, logtoview, setLogtoview, setEditNL, ip, port}
             </Card.Body>
           </Card>
         </div>
+        <Modal show={popupOpen} onHide={closeModal}>
+          <Modal.Body>Are you sure you want to delete log?</Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={del}>
+              Yes
+            </Button>
+            <Button variant="secondary" onClick={closeModal}>
+              No
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     )
   }else{

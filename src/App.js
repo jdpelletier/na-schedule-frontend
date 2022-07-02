@@ -119,7 +119,7 @@ function App () {
     const working = []
     for(var key in day){
       if(['NAH', 'NA1', 'NAH2'].includes(day[key])){
-        working.push(key + " " + day[key])
+        working.push(key + " " + day[key] + " ")
       }
     }
     setStaff(working)
