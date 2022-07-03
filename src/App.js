@@ -127,20 +127,23 @@ function App () {
 
   const get_staffinfo = () => {
     const url = 'https://www3build.keck.hawaii.edu/staffinfo';
-    return axiosInstance.get(url)
-        .then((response: AxiosResponse<any>) => {
-            const ip = response.headers["x-my-real-ip"]
-            return axios.request({
-                url: url,
-                method: "get",
-                withCredentials: true,
-                headers: {
-                    'X-My-Real-Ip': ip,
-                },
-            })
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          const ip = data.headers["x-my-real-ip"]
+          fetch(url,
+        		{
+        			method: 'GET',
+              withCredentials: true,
+              headers: {
+                  'X-My-Real-Ip': ip,
+              },
+        	  }
+          ).then(response => response.json())
+           .then(data => console.log(data));
         })
-    }
-    console.log(get_staffinfo())
+  }
+  get_staffinfo()
 
   let table = <Table dat={filteredSchedule()} cols={columns} dateRange={dateRange} setDateRange={setDateRange} holidays={holidays} today={convertTime(new Date())}
                 getCellProps={cellInfo => ({
