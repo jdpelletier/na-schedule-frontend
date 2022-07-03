@@ -127,21 +127,22 @@ function App () {
 
   const get_staffinfo = () => {
     const url = 'https://www3build.keck.hawaii.edu/staffinfo';
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          const ip = data.headers["x-my-real-ip"]
-          fetch(url,
-        		{
-        			method: 'GET',
-              withCredentials: true,
-              headers: {
-                  'X-My-Real-Ip': ip,
-              },
-        	  }
-          ).then(response => response.json())
-           .then(data => console.log(data));
-        })
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        const ip = data.headers["x-my-real-ip"]
+        fetch(url,
+      		{
+      			method: 'GET',
+            withCredentials: true,
+            headers: {
+                'X-My-Real-Ip': ip,
+            },
+      	  }
+        ).then(response => response.json())
+         .then(data => console.log(data));
+      })
   }
   get_staffinfo()
 
