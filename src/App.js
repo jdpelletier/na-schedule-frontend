@@ -144,7 +144,7 @@ function App () {
          .then(data => console.log(data));
       })
   }
-  get_staffinfo()
+  // get_staffinfo()
 
   let table = <Table dat={filteredSchedule()} cols={columns} dateRange={dateRange} setDateRange={setDateRange} holidays={holidays} today={convertTime(new Date())}
                 getCellProps={cellInfo => ({
