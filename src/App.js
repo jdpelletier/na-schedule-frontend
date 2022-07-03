@@ -125,6 +125,23 @@ function App () {
     setStaff(working)
   }
 
+  const get_staffinfo = () => {
+    const url = 'https://www3build.keck.hawaii.edu/staffinfo';
+    return axiosInstance.get(url)
+        .then((response: AxiosResponse<any>) => {
+            const ip = response.headers["x-my-real-ip"]
+            return axios.request({
+                url: url,
+                method: "get",
+                withCredentials: true,
+                headers: {
+                    'X-My-Real-Ip': ip,
+                },
+            })
+        })
+    }
+    console.log(get_staffinfo())
+
   let table = <Table dat={filteredSchedule()} cols={columns} dateRange={dateRange} setDateRange={setDateRange} holidays={holidays} today={convertTime(new Date())}
                 getCellProps={cellInfo => ({
                   style: {
