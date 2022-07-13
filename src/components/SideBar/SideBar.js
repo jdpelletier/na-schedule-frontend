@@ -17,7 +17,7 @@ import Sickvac from '../../static/schedSickvac.PNG'
 import Pay from '../../static/schedPay.PNG'
 import Hol from '../../static/schedHol.PNG'
 
-export const SideBar = ({ isSignedIn, onRouteChange, onNewSchedule, names, setPage, staff, ip, port}) => {
+export const SideBar = ({ isAdmin, onRouteChange, onNewSchedule, names, setPage, staff, ip, port}) => {
 
 
   // const [staffTest, setStaffTest] = useState([])
@@ -71,7 +71,7 @@ export const SideBar = ({ isSignedIn, onRouteChange, onNewSchedule, names, setPa
           </Card>
         </div>
         <div className="upload">
-          <UploadFile isSignedIn={isSignedIn} onRouteChange={onRouteChange} onNewSchedule={onNewSchedule} ip={ip} port={port}/>
+          <UploadFile isAdmin={isAdmin} onRouteChange={onRouteChange} onNewSchedule={onNewSchedule} ip={ip} port={port}/>
         </div>
       </div>
     </div>
