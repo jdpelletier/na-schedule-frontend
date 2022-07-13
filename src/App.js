@@ -101,24 +101,13 @@ function App () {
     fetch('https://www3build.keck.hawaii.edu/staffinfo')
       .then(response => response.json())
       .then(data => {
-        console.log(data.Alias)
         if(data.Alias==="jpelletier"){
           setIsAdmin(true)
         }else{
           setIsAdmin(false)
         }
-        console.log(isAdmin)
       })
   }, [findStaffandHolidays])
-
-  const onRouteChange = (route) => {
-    if (route === 'signout') {
-      setIsAdmin(false)
-    }else if (route === 'signin') {
-      setIsAdmin(true)
-    }
-    setRoute(route)
-  }
 
   const onNewSchedule = (data) => {
     setSchedule([...data])
@@ -163,7 +152,7 @@ function App () {
                 {table}
               </div>
               <div className="sidebar-item">
-                <SideBar isAdmin={isAdmin} onRouteChange={onRouteChange} onNewSchedule={onNewSchedule}
+                <SideBar isAdmin={isAdmin} onNewSchedule={onNewSchedule}
                          names={names} setPage={setPage} staff={staff} ip={ip} port={port}/>
               </div>
             </div>

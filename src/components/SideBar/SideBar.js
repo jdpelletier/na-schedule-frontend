@@ -71,7 +71,7 @@ export const SideBar = ({ isAdmin, onRouteChange, onNewSchedule, names, setPage,
           </Card>
         </div>
         <div className="upload">
-          <UploadFile isAdmin={isAdmin} onRouteChange={onRouteChange} onNewSchedule={onNewSchedule} ip={ip} port={port}/>
+          <UploadFile isAdmin={isAdmin} onNewSchedule={onNewSchedule} ip={ip} port={port}/>
         </div>
       </div>
     </div>
