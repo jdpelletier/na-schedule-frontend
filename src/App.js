@@ -22,7 +22,7 @@ function App () {
   // eslint-disable-next-line
   const [route, setRoute] = useState('signin')
   const [page, setPage] = useState('home')
-  const [isSignedIn, setIsSignedIn] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
   const [names, setNames] = useState([])
@@ -97,14 +97,23 @@ function App () {
         setSchedule([...data])
         setColumns([...cols(data)])
         findStaffandHolidays(data)
-      });
+      })
+    fetch('https://www3build.keck.hawaii.edu/staffinfo')
+      .then(response => response.json())
+      .then(data => {
+        if(data.Alias==="jpelletier"){
+          setIsAdmin(true)
+        }else{
+          setIsAdmin(false)
+        }
+      })
   }, [findStaffandHolidays])
 
   const onRouteChange = (route) => {
     if (route === 'signout') {
-      setIsSignedIn(false)
+      setIsAdmin(false)
     }else if (route === 'signin') {
-      setIsSignedIn(true)
+      setIsAdmin(true)
     }
     setRoute(route)
   }
@@ -124,27 +133,6 @@ function App () {
     }
     setStaff(working)
   }
-
-  const get_staffinfo = () => {
-    const url = 'https://www3build.keck.hawaii.edu/staffinfo';
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        console.log(data)
-        const ip = data.headers["x-my-real-ip"]
-        fetch(url,
-      		{
-      			method: 'GET',
-            withCredentials: true,
-            headers: {
-                'X-My-Real-Ip': ip,
-            },
-      	  }
-        ).then(response => response.json())
-         .then(data => console.log(data));
-      })
-  }
-  // get_staffinfo()
 
   let table = <Table dat={filteredSchedule()} cols={columns} dateRange={dateRange} setDateRange={setDateRange} holidays={holidays} today={convertTime(new Date())}
                 getCellProps={cellInfo => ({
@@ -173,7 +161,7 @@ function App () {
                 {table}
               </div>
               <div className="sidebar-item">
-                <SideBar isSignedIn={isSignedIn} onRouteChange={onRouteChange} onNewSchedule={onNewSchedule}
+                <SideBar isAdmin={isAdmin} onRouteChange={onRouteChange} onNewSchedule={onNewSchedule}
                          names={names} setPage={setPage} staff={staff} ip={ip} port={port}/>
               </div>
             </div>
